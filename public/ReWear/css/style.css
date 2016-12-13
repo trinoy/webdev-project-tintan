@@ -181,14 +181,14 @@ html {
 
 /*product detail*/
 
+.price-input{
+    margin-top: 10px;
+}
+
 .seller-amount{
-    /*margin-top:5px;*/
-    background-color: #a6ffef;
-    /*border-radius: 50px;
-    max-width: 55px !important;
-    height: 55px;*/
-    /* line-height: 2.1; */
-    text-align: center;
+    font-family: sans-serif;
+    color: #1a86e8;
+    font-weight: bolder;
 }
 
 .text-move-down{
@@ -258,8 +258,8 @@ html {
 }
 
 .rent-button {
-    margin-left: auto;
-    margin-right: auto;
+/*    margin-left: auto;
+    margin-right: auto;*/
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -371,7 +371,7 @@ html {
 }
 
 .product-title, .rating, .product-description, .price, .vote, .sizes {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .product-title {

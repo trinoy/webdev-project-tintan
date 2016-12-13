@@ -1,6 +1,13 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand">Share-Drobe</a>
+        <p class="navbar-text  navbar-left navbar-master-left">
+            <a href="#/products" class="navbar-link">
+                <span class="glyphicon glyphicon-chevron-left">
+                </span>
+            </a>
+        </p>
+
+        <a class="navbar-brand">ReWear</a>
 
         <p class="landing-icons-left1">
             <a class="navbar-link" href="#/login">
@@ -18,31 +25,33 @@
                 <img col-md-4 col-xs-12 style="height:250px"
                      src="{{model.productDetail.PictureURL[0]}}"/>
             </div>
-
             <div class="details col-md-4 col-xs-12">
                 <h3 class="product-title text-primary">{{model.productDetail.Title}}</h3>
                 <div class="rating">
                     <p class="review-no"><b>Category:-</b> {{model.productDetail.PrimaryCategoryName}}</p>
                 </div>
-                <p class="product-description">{{model.productDetail.shortDesc}}</p>
-                <form>
-                    <h5>Size</h5>
-                    <select class="selectpicker form-control">
-                        <option>Small</option>
-                        <option>Medium</option>
-                        <option>Large</option>
-                    </select>
-                    <h5>Color</h5>
-                    <select class="selectpicker form-control">
-                        <option>Red</option>
-                        <option>Green</option>
-                        <option>Yellow</option>
-                    </select>
-                </form>
-                <div class="action rent-button">
-                    <button class="btn btn-danger" type="button">Find Renters</button>
-                    <button class="btn btn-primary" type="button">Lent It</button>
+                <div class="btn-group">
+                    <label class="btn btn-primary" ng-model="model.mode" uib-btn-radio="'Rent'">Rent</label>
+                    <label class="btn btn-primary" ng-model="model.mode" uib-btn-radio="'Lent'">Lend</label>
                 </div>
+                    <h5>Size</h5>
+                    <select selectpicker ng-model="model.selectedOption" ng-options="size as size for size in model.sizes"
+                            toggle-dropdown>
+                        <option value="">Select one</option>
+                    </select>
+               <!-- <input class="price-input" ng-show="model.mode=='Lent'" name="price" ng-model="model.price" type="text"
+                       placeholder="Price"/>-->
+                <div ng-show="model.mode=='Lent'" class="input-group price-input">
+                    <span class="input-group-addon">$</span>
+                    <input name="price" ng-model="model.price"  type="text" class="form-control"
+                           aria-label="Amount (to the nearest dollar)" placeholder="Whats Your Deal">
+                </div>
+                <div class="action rent-button">
+                    <button ng-show="model.mode=='Rent'"class="btn btn-primary" type="button">Find Renters</button>
+                    <button ng-show="model.mode=='Lent'" class="btn btn-primary" type="button">Lend It</button>
+                </div>
+                <div uib-alert ng-repeat="alert in model.alerts" ng-class="'alert-' + (alert.type || 'info')"
+                     close="model.closeAlert($index)" dismiss-on-timeout="3000">{{alert.msg}}</div>
             </div>
 
             <div class="col-md-4 col-xs-12">
@@ -51,6 +60,7 @@
                         <span class="title">Lenters</span>
                     </div>
                     <ul class="list-group seller-height" id="contact-list">
+                        <li ng-show="!model.lenters.length">No Renters Found</li>
                         <li class="list-group-item" ng-repeat="lenter in model.lenters">
                             <div class="col-xs-12 col-sm-3 cold-md-3 col-lg-3">
                                 <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="Test Test"
@@ -75,8 +85,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="wrapper row detail-tab-margin">
             <div class="col-md-12 col-xs-12" id="logout">
                 <div class="comment-tabs">
@@ -182,17 +190,6 @@
                 </div>
 
             </div>
-
-
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $('.selectpicker').selectpicker({
-            style: 'btn-info',
-            size: 4
-        });
-    });
-</script>

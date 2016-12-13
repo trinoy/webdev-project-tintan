@@ -12,6 +12,24 @@
         vm.checkSafeHtml = checkSafeHtml;
         vm.reviews;
         vm.sellers;
+        vm.selectedOption;
+
+        vm.singleModel = 1;
+        vm.mode='Rent';
+        vm.selectedOption = "Small";
+
+        vm.alerts = [
+           // { type: 'info', msg: 'Oh snap! Change a few things up and try submitting again.' },
+           // { type: 'info', msg: 'Well done! You successfully read this important alert message.' }
+        ];
+
+        vm.addAlert = function() {
+            vm.alerts.push({msg: 'Another alert!'});
+        };
+
+        vm.closeAlert = function(index) {
+            vm.alerts.splice(index, 1);
+        };
 
 
         function checkSafeHtml() {
@@ -26,7 +44,9 @@
             vm.reviews = [{title : "It is awesome", by: "trinoy", description : "I really Liked it", rating: 2,dateCreated:"12-10-2016" },
                 {title : "It is awesome", by: "trinoy", description : "I really Liked it", rating: 2,dateCreated:"12-10-2016" }];
             vm.lenters = [{firstName : "Trinoy", lastName: "Hazarika", email : "email@email.com", phone: "6173808036" ,price:21 },
-                {firstName : "Trinoy", lastName: "Hazarika", email : "email@email.com", phone: "6173808036" ,price:21 }]
+                {firstName : "Trinoy", lastName: "Hazarika", email : "email@email.com", phone: "6173808036" ,price:21 }];
+
+            vm.sizes = ['Small', 'Medium', 'Large'];
         }
 
         init();

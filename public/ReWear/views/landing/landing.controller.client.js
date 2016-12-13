@@ -1,9 +1,9 @@
 (function () {
     angular
         .module("ReWear")
-        .controller("LandingController", ff);
+        .controller("LandingController", LandingController);
 
-    function ff($location,$rootScope) {
+    function LandingController($location,$rootScope) {
         var vm = this;
         vm.searchTerm = "";
         vm.search = search;
