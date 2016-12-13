@@ -60,23 +60,23 @@
                         <span class="title">Lenters</span>
                     </div>
                     <ul class="list-group seller-height" id="contact-list">
-                        <li ng-show="!model.lenters.length">No Renters Found</li>
-                        <li class="list-group-item" ng-repeat="lenter in model.lenters">
+                        <li ng-show="!model.lenders.length">No Renters Found</li>
+                        <li class="list-group-item" ng-repeat="lender in model.lenders">
                             <div class="col-xs-12 col-sm-3 cold-md-3 col-lg-3">
                                 <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="Test Test"
                                      class="img-responsive img-circle"/>
                             </div>
                             <div class="col-xs-12 col-sm-6">
-                                <span class="name">{{lenter.firstName}}&nbsp{{lenter.lastName}}</span><br/>
+                                <span class="name">{{lender.firstName}}&nbsp{{lender.lastName}}</span><br/>
                                 <span class="glyphicon glyphicon-envelope text-muted c-info" data-toggle="tooltip"
                                       title="scott.stevens@example.com"></span>
-                                <span class="text-muted">{{lenter.email}}</span><br/>
+                                <span class="text-muted">{{lender.email}}</span><br/>
                                 <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip"
                                       title="(870) 288-4149"></span><br>
-                                <span class="text-muted">{{lenter.phone}}</span>
+                                <span class="text-muted">{{lender.phone}}</span>
                             </div>
                             <div class="col-xs-12 col-sm-3 cold-md-3 col-lg-3 seller-amount">
-                                <span class="text-move-down">{{lenter.price}}<i class="fa fa-dollar"></i></span>
+                                <span class="text-move-down">{{lender.price}}<i class="fa fa-dollar"></i></span>
                                 <button class="btn btn-primary" type="button">Rent It</button>
                             </div>
                             <div class="clearfix"></div>

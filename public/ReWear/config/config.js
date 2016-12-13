@@ -37,16 +37,17 @@
              controllerAs: "model",
              resolve: {loggedin: checkLoggedin}
              })
-            .when("/user/:uid/edit", {
+            .when("/user/edit", {
                 templateUrl: "views/user/profile-edit.view.client.html",
                 controller: "ProfileEditController",
                 controllerAs: "model",
                 resolve: {loggedin: checkLoggedin}
             })
-            .when("/seller/", {
+            .when("/user/:uid/seller/:sid", {
                 templateUrl: "views/user/sell-profile.view.client.html",
                 controller: "SellerProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+
             })
             .when ("/user", {
                 templateUrl: "views/user/profile.view.client.html",

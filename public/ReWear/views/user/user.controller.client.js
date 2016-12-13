@@ -22,7 +22,7 @@
                         function (response) {
                             var user = response.data;
                             $rootScope.currentUser = user;
-                            $location.url("/user/" + user._id);
+                            $location.url("/user");
                         },
                         function (err) {
                             vm.error = "Invalid Username and Password";
@@ -63,7 +63,7 @@
                         function (response) {
                             var user = response.data;
                             $rootScope.currentUser = user;
-                            $location.url("/user/" + user._id);
+                            $location.url("/user");
                         },
                         function (err){
                             vm.error = "Unable to register";
@@ -75,52 +75,9 @@
         }
     }
 
-    function ProfileController($location, $routeParams, $rootScope, UserService) {
+    function ProfileController($location, $routeParams, $rootScope, UserService, RentalService, UserReviewService, MessageService) {
         var vm = this;
         vm.userId = $rootScope.currentUser._id;;
-        vm.logout = logout;
-        function init() {
-            UserService.findUserById(vm.userId)
-                .success(function (user) {
-                    vm.user = user;
-                })
-                .error(function () {
-                    vm.error = "Unable to fetch user";
-                });
-
-        }
-
-        init();
-
-
-        function updateUser(user) {
-            UserService.updateUser(vm.userId, user)
-                .success(function () {
-                    $location.url("/user");
-                })
-                .error(function () {
-                    vm.error = "Unable to update profile";
-                });
-
-        }
-
-        function logout() {
-            UserService
-                .logout()
-                .then(
-                    function (response) {
-                        $rootScope.currentUser = null;
-                        $location.url("/");
-                    });
-        }
-
-
-    }
-
-    function ProfileEditController($location, $routeParams, $rootScope, UserService, RentalService, UserReviewService, MessageService) {
-        var vm = this;
-        vm.userId = $rootScope.currentUser._id;;
-        vm.updateUser = updateUser;
         vm.logout = logout;
         function init() {
             UserService.findUserById(vm.userId)
@@ -167,7 +124,7 @@
                 });
             MessageService.findMessageByUserId(vm.userId)
                 .success(function (msgs) {
-                    vm.inbox = msgs;
+                    vm.sent = msgs;
                 })
                 .error(function () {
                     vm.error = "Unable to fetch sent messages";
@@ -202,19 +159,61 @@
 
     }
 
+    function ProfileEditController($location, $routeParams, $rootScope, UserService) {
+        var vm = this;
+        vm.userId = $rootScope.currentUser._id;;
+        vm.updateUser = updateUser;
+        vm.logout = logout;
+        function init() {
+            UserService.findUserById(vm.userId)
+                .success(function (user) {
+                    vm.user = user;
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch user";
+                });
+        }
+
+        init();
+
+
+        function updateUser(user) {
+            UserService.updateUser(vm.userId, user)
+                .success(function () {
+                    $location.url("/user");
+                })
+                .error(function () {
+                    vm.error = "Unable to update profile";
+                });
+
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+
+
+    }
+
     function SellerProfileController($location, $routeParams, $rootScope, UserService, UserReviewService, MessageService) {
         var vm = this;
-        vm.userId = $rootScope.currentUser._id;
-        vm.sellerId = $routeParams['sellerId'];
+        vm.userId = $routeParams['uid'];
+        vm.sellerId = $routeParams['sid'];
         vm.logout = logout;
         vm.addFollower = addFollower;
         vm.addLike = addLike;
         vm.postReview = postReview;
         vm.sendMessage = sendMessage;
         function init() {
-            UserService.findUserById(vm.userId)
-                .success(function (user) {
-                    vm.user = user;
+            UserService.findUserById(vm.sellerId)
+                .success(function (seller) {
+                    vm.seller = seller;
                 })
                 .error(function () {
                     vm.error = "Unable to fetch user";
@@ -267,7 +266,9 @@
                 });
         }
 
-        function postReview() {
+        function postReview(review) {
+            review.by = vm.userId;
+            review.for = vm.sellerId;
             UserReviewService
                 .createUserReview(review)
                 .success(function () {
@@ -278,7 +279,9 @@
                 });
         }
 
-        function sendMessage() {
+        function sendMessage(message) {
+            message.by = vm.userId;
+            message.for = vm.sellerId;
             MessageService
                 .createMessage(message)
                 .success(function () {

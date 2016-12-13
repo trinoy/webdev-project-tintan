@@ -6,12 +6,12 @@
             </a>
         </div>
         <div class="navbar-text pull-right">
-            <a class="white-icon"  ng-click="model.logout()">
+            <a class="white-icon" ng-click="model.logout()">
                 <span class="glyphicon glyphicon-log-out"></span>
             </a>
         </div>
         <div class="navbar-text pull-right">
-            <a class="white-icon" href="#/user/{{model.userId}}/edit">
+            <a class="white-icon" href="#/user/edit">
                 <span class="glyphicon glyphicon-edit"></span>
             </a>
         </div>
@@ -31,11 +31,12 @@
         <div class="media">
             <a class="pull-left" href="#">
                 <img class="media-object dp img-circle"
-               ng-src="{{ model.user.url || 'https://app.nimia.com/static/img/default_profile.png' }}"
+                     ng-src="{{ model.user.url || 'https://app.nimia.com/static/img/default_profile.png' }}"
                      style="width: 150px;height:150px;">
             </a>
             <div class="media-body">
-                <h4 class="media-heading">{{model.user.firstName}} {{model.user.lastName}} ({{model.user.username}})</h4>
+                <h4 class="media-heading">{{model.user.firstName}} {{model.user.lastName}}
+                    ({{model.user.username}})</h4>
                 <h4>
                     <small><i class="fa fa-map-marker"></i> {{model.user.address}}</small>
                 </h4>
@@ -46,11 +47,7 @@
                     <small><i class="fa fa-phone"></i> {{model.user.phone}}</small>
                 </h4>
 
-                <h5>Member Since: <a href="http://gridle.in">Jan 2016</a></h5>
-
-
-
-
+                <h5>Member Since: <a href="http://gridle.in">{{model.user.dateCreated | date: MMM/yyyy}}</a></h5>
 
 
             </div>
@@ -61,8 +58,9 @@
 
     <div class="row">
         <ul class="nav nav-pills nav-justified" role="tablist">
-            <li class="active"><span href="#tabLent" role="tab" data-toggle="tab"><i class="fa fa-hand-o-left"></i> Lent</span></li>
-            <li><span href="#tabRent"  role="tab" data-toggle="tab"><i class="fa fa-hand-o-right"></i> Rented</span></li>
+            <li class="active"><span href="#tabLent" role="tab" data-toggle="tab"><i class="fa fa-hand-o-left"></i> Lent</span>
+            </li>
+            <li><span href="#tabRent" role="tab" data-toggle="tab"><i class="fa fa-hand-o-right"></i> Rented</span></li>
             <li><span href="#tabRvw" data-toggle="tab"><i class="fa fa-star"></i> Reviews</span></li>
             <li><span href="#tabFlw" data-toggle="tab"><i class="fa fa-heart"></i> Followers</span></li>
             <li><span href="#tabLike" data-toggle="tab"><i class="fa fa-thumbs-up"></i> Likes</span></li>
@@ -71,146 +69,162 @@
 
         <div class="tab-content clearfix">
             <div class="tab-pane active" id="tabLent">
-                <h3>Content's background color is the same for the tab</h3>
-            </div>
-            <div class="tab-pane" id="tabRent">
-                <h3>We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab</h3>
-            </div>
-            <div class="tab-pane" id="tabRvw">
-                <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
-            </div>
-            <div class="tab-pane" id="tabMsg">
-                <div class="table-container">
-                    <table class="table table-filter">
-                        <tbody>
-                        <tr >
-
-                            <td>
-                                <div class="media">
-                                    <a href="#" class="pull-left">
-                                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
-                                    </a>
-                                    <div class="media-body">
-                                        <span class="media-meta pull-right">Febrero 13, 2016</span>
-                                        <h4 class="title">
-                                            Lorem Impsum
-
-                                        </h4>
-                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr >
-
-                            <td>
-                                <div class="media">
-                                    <a href="#" class="pull-left">
-                                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
-                                    </a>
-                                    <div class="media-body">
-                                        <span class="media-meta pull-right">Febrero 13, 2016</span>
-                                        <h4 class="title">
-                                            Lorem Impsum
-
-                                        </h4>
-                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr >
-
-                            <td>
-                                <div class="media">
-                                    <a href="#" class="pull-left">
-                                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
-                                    </a>
-                                    <div class="media-body">
-                                        <span class="media-meta pull-right">Febrero 13, 2016</span>
-                                        <h4 class="title">
-                                            Lorem Impsum
-
-                                        </h4>
-                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                        </tbody>
-                    </table>
+                <div class="row">
+                    <div class="panel panel-primary filterable">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Products Lent By You</h3>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr class="filters">
+                                <th><input type="text" class="form-control" placeholder="Product" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Size" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Price" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Renter" disabled></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="lent in model.lents">
+                                <td><a href="#/productDetail/{lent.productId}}">{{lent.productId}}</a></td>
+                                <td>{{lent.size}}</td>
+                                <td>{{lent.price}}</td>
+                                <td>{{lent.renter}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+            <div class="tab-pane" id="tabRent">
+                <div class="row">
+                    <div class="panel panel-primary filterable">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Products Rented By You</h3>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr class="filters">
+                                <th><input type="text" class="form-control" placeholder="Product" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Size" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Price" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Renter" disabled></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="rent in model.rents">
+                                <td><a href="#/productDetail/{{rent.productId}}">{{rent.productId}}</a></td>
+                                <td>{{rent.size}}</td>
+                                <td>{{rent.price}}</td>
+                                <td><a href="#/user/{{model.userId}}/seller/{{rent.lender}}">{{rent.lender}}</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tabRvw">
+                <div class="panel-heading tabHead">
+                    <h3 class="panel-title">Reviews For You</h3>
+                </div>
+                <div class="wrapper row panel-table-margin">
+                    <div class="col-sm-12 col-xs-12 col-md-3 col-lg-3" ng-repeat="review in model.forReviews">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                         <span itemscope>
+                                             <h3 class="panel-title">{{review.title}}</h3>
+                                         </span>
+                            </div>
+                            <div class="panel-body">
+                                <p>{{review.description}}</p>
+                                <span></span>
+                                <span>{{review.by}}</span>
+                                <span class ="pull-right">
+                                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                        <span>{{review.dateCreated}}</span>
+                                        </span>
+
+                            </div>
+                            <div class="panel-footer clearfix">
+                                        <span class="pull-right">
+                                            <span class="reviewRating">
+                                                <meta content="1"><span itemprop="ratingValue">{{review.rating}}</span>
+                                                <span itemprop="bestRating">stars</span>
+                                            </span>
+                                                  <span ng-repeat="_ in ((_ = []) && (_.length=review.rating) && _) track by $index"
+                                                        class="glyphicon glyphicon-star"
+                                                        aria-hidden="true"></span>
+                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-heading tabHead">
+                    <h3 class="panel-title">Reviews By You</h3>
+                </div>
+                <div class="wrapper row panel-table-margin">
+                    <div class="col-sm-12 col-xs-12 col-md-3 col-lg-3" ng-repeat="review in model.byReviews">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                         <span itemscope>
+                                             <h3 class="panel-title">{{review.title}}</h3>
+                                         </span>
+                            </div>
+                            <div class="panel-body">
+                                <p>{{review.description}}</p>
+                                <span></span>
+                                <span>{{review.by}}</span>
+                                <span class ="pull-right">
+                                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                        <span>{{review.dateCreated}}</span>
+                                        </span>
+
+                            </div>
+                            <div class="panel-footer clearfix">
+                                        <span class="pull-right">
+                                            <span class="reviewRating">
+                                                <meta content="1"><span itemprop="ratingValue">{{review.rating}}</span>
+                                                <span itemprop="bestRating">stars</span>
+                                            </span>
+                                                  <span ng-repeat="_ in ((_ = []) && (_.length=review.rating) && _) track by $index"
+                                                        class="glyphicon glyphicon-star"
+                                                        aria-hidden="true"></span>
+                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="tab-pane" id="tabFlw">
                 <div class="panel-body">
                     <ul class="list-group list-group-dividered list-group-full">
-                        <li class="list-group-item">
+                        <li ng-repeat="fol in model.user.followers" class="list-group-item">
                             <div class="media">
                                 <div class="media-left">
-                                    <a class="avatar avatar-online" href="javascript:void(0)">
-                                        <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                    <span class="avatar">
+                                        <img src="{{fol.url || 'https://app.nimia.com/static/img/default_profile.png'}}"
+                                             alt="">
                                         <i></i>
-                                    </a>
+                                    </span>
                                 </div>
                                 <div class="media-body">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-info btn-sm waves-effect waves-light">Follow</button>
-                                    </div>
-                                    <div><a class="name" href="javascript:void(0)">Willard Wood</a></div>
-                                    <small>@heavybutterfly920</small>
+                                    <div><span class="name">{{fol.firstName}} {{fol.lastName}}</span></div>
+                                    <small>{{fol.username}}</small>
                                 </div>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="media">
                                 <div class="media-left">
-                                    <a class="avatar avatar-away" href="javascript:void(0)">
-                                        <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                    <span class="avatar">
+                                        <img src="https://app.nimia.com/static/img/default_profile.png" alt="">
                                         <i></i>
-                                    </a>
+                                    </span>
                                 </div>
                                 <div class="media-body">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-success btn-default btn-sm waves-effect waves-light"><i class="icon md-check" aria-hidden="true"></i>Following</button>
-                                    </div>
-                                    <div><a class="name" href="javascript:void(0)">Ronnie Ellis</a></div>
+                                    <div><span class="name">Ronnie Ellis</span></div>
                                     <small>@kingronnie24</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a class="avatar avatar-busy" href="javascript:void(0)">
-                                        <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                                        <i></i>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-info btn-sm waves-effect waves-light">Follow</button>
-                                    </div>
-                                    <div><a class="name" href="javascript:void(0)">Gwendolyn Wheeler</a></div>
-                                    <small>@perttygirl66</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a class="avatar avatar-off" href="javascript:void(0)">
-                                        <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                                        <i></i>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-info btn-sm waves-effect waves-light">Follow</button>
-                                    </div>
-                                    <div><a class="name" href="javascript:void(0)">Daniel Russell</a></div>
-                                    <small>@danieltiger08</small>
                                 </div>
                             </div>
                         </li>
@@ -220,43 +234,87 @@
             <div class="tab-pane" id="tabLike">
                 <div class="panel-body">
                     <ul class="list-group list-group-dividered list-group-full">
-
-                        <li class="list-group-item">
+                        <li ng-repeat="like in model.user.likes" class="list-group-item">
                             <div class="media">
                                 <div class="media-left">
-                                    <a class="avatar avatar-away" href="javascript:void(0)">
-                                        <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                    <span class="avatar">
+                                        <img src="{{like.url || 'https://app.nimia.com/static/img/default_profile.png'}}"
+                                             alt="">
                                         <i></i>
-                                    </a>
+                                    </span>
                                 </div>
                                 <div class="media-body">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-success btn-default btn-sm waves-effect waves-light"><i class="icon md-check" aria-hidden="true"></i>Following</button>
-                                    </div>
-                                    <div><a class="name" href="javascript:void(0)">Ronnie Ellis</a></div>
-                                    <small>@kingronnie24</small>
+                                    <div><span class="name">{{like.firstName}} {{like.lastName}}</span></div>
+                                    <small>{{like.username}}</small>
                                 </div>
                             </div>
                         </li>
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a class="avatar avatar-busy" href="javascript:void(0)">
-                                        <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                                        <i></i>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-info btn-sm waves-effect waves-light">Follow</button>
-                                    </div>
-                                    <div><a class="name" href="javascript:void(0)">Gwendolyn Wheeler</a></div>
-                                    <small>@perttygirl66</small>
-                                </div>
-                            </div>
-                        </li>
-
                     </ul>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="tabMsg">
+                <div class="panel-heading tabHead">
+                    <h3 class="panel-title">Inbox</h3>
+                </div>
+                <div class="table-container">
+                    <table class="table table-filter">
+                        <tbody>
+                        <tr ng-repeat="msg in model.inbox">
+
+                            <td>
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img src="{{msg.by.url || 'https://app.nimia.com/static/img/default_profile.png'}}"
+                                             class="media-photo">
+                                         <span class="name">{{msg.by.firstName}} {{msg.by.lastName}}</span>
+                                    <small>{{msg.by.username}}</small>
+                                    </span>
+                                    <div class="media-body">
+                                        <span class="media-meta pull-right">{{msg.dateCreated | date: MMM/yyyy}}</span>
+                                        <h4 class="title">
+                                            {{msg.subject}}
+
+                                        </h4>
+                                        <p class="summary">{{msg.description}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel-heading tabHead">
+                    <h3 class="panel-title">Sent</h3>
+                </div>
+                <div class="table-container">
+                    <table class="table table-filter">
+                        <tbody>
+                        <tr ng-repeat="msg in model.sent">
+
+                            <td>
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img src="{{msg.for.url || 'https://app.nimia.com/static/img/default_profile.png'}}"
+                                             class="media-photo">
+                                        <span class="name">{{msg.for.firstName}} {{msg.for.lastName}}</span>
+                                    <small>{{msg.for.username}}</small>
+                                    </span>
+                                    <div class="media-body">
+                                        <span class="media-meta pull-right">{{msg.dateCreated | date: MMM/yyyy}}</span>
+                                        <h4 class="title">
+                                            {{msg.subject}}
+
+                                        </h4>
+                                        <p class="summary">{{msg.description}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
