@@ -1,0 +1,36 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand">Share-Drobe</a>
+
+        <p class="landing-icons-left1">
+            <a class="navbar-link" href="#/login">
+                <img class="header-icon pull-right navbar-right"
+                     src="https://cdn3.iconfinder.com/data/icons/security-3-1/512/access-512.png"/>
+            </a>
+        </p>
+
+        <p class="landing-icons-left2">
+            <a class="navbar-link" href="#/register">
+                <img class="header-icon pull-right navbar-right"
+                     src="http://www.betternonprofits.org/getattachment/Create-An-Account/Individual-Member-Icon.gif"/>
+            </a>
+        </p>
+    </div>
+</nav>
+
+<div style="width:100%;height:100%;overflow: hidden" class="container-fluid">
+    <img style="width:100%;height:100%"
+         src="https://secure.static.tumblr.com/e09d476f24bf2ce48c3753e2ca2f0070/gfiodba/ZtImwfxsg/tumblr_static_blog_background.jpg"
+         class="img-responsive">
+    <div id="custom-search-input" class="main-text">
+        <div class="input-group col-md-12">
+            <input type="text" ng-model="model.searchTerm" class="search-query form-control"
+                   placeholder="Enter the dress type you wanna wear today SKIRT? DRESS?"/>
+            <span class="input-group-btn">
+                         <button class="btn btn-danger" type="button" ng-click="model.search()">
+                            <span class=" glyphicon glyphicon-search"></span>
+                         </button>
+            </span>
+        </div>
+    </div>
+</div>

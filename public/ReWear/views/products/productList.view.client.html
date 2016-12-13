@@ -1,0 +1,84 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand">Share-Drobe</a>
+
+        <p class="landing-icons-left1">
+            <a class="navbar-link" href="#/login">
+                <img class="header-icon pull-right navbar-right"
+                     src="https://cdn3.iconfinder.com/data/icons/security-3-1/512/access-512.png"/>
+            </a>
+        </p>
+    </div>
+</nav>
+
+<div class="container">
+
+
+    <div id="custom-search-input" class="detail-search">
+        <h4>Not What You Want. God Gives Second Chances</h4>
+        <div class="input-group col-md-12">
+            <input type="text" ng-model="model.searchTerm" class="form-control"
+                   placeholder="Enter the dress type you wanna wear today SKIRT? DRESS?"/>
+            <span class="input-group-btn">
+                         <button class="btn btn-danger" type="button" ng-click="model.search()">
+                            <span class=" glyphicon glyphicon-search"></span>
+                         </button>
+            </span>
+        </div>
+    </div>
+
+    <div class="well well-sm">
+        <strong>Category Title</strong>
+        <div class="btn-group">
+            <span href="#" target="_self" id="list" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-th-list"></span>List</span>
+
+            <span target="_self" href="#" id="grid" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-th"></span>Grid</span>
+        </div>
+    </div>
+    <div id="products" class="row list-group">
+        <div class="item card-box col-md-4 col-sm-6 col-xs-12 col-lg-4" ng-repeat="product in model.products">
+            <div class="thumbnail">
+                <a class="ebay" target="_blank" href="{{product.viewItemURL[0]}}">
+                    <img class="ebay-image" src="image/ebay.png">
+                </a>
+                <h4 class="box-header">{{product.title[0]}}</h4>
+                <h7>{{product.primaryCategory[0].categoryName[0]}}</h7>
+                <img class="group list-group-image img-size" ng-src="{{product.galleryURL[0]}}"/>
+                <div class="caption">
+                    <div class="ebay-price">
+                        <h5 class="group inner ebay-price-h5 list-group-item-heading"><b>Ebay Price:</b></h5>
+                        <p class="">{{product.sellingStatus[0]
+                            .convertedCurrentPrice[0].__value__}}<i class="fa fa-dollar"></i></p>
+                    </div>
+                </div>
+                <div class="row card-button">
+                    <div>
+                        <h4 class="group inner ebay-price-h4 list-group-item-heading">Why Buy If You Can</h4>
+                        <span>
+                            <a class="btn btn-primary" href="#/productDetail/{{product.itemId[0]}}">Lend</a>
+                        </span>
+                        <span>
+                            <a class="btn btn-danger" href="#/productDetail/{{product.itemId[0]}}">Rent</a>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#list').click(function (event) {
+            event.preventDefault();
+            $('#products .item').addClass('list-group-item');
+        });
+        $('#grid').click(function (event) {
+            event.preventDefault();
+            $('#products .item').removeClass('list-group-item');
+            $('#products .item').addClass('grid-group-item');
+        });
+    });
+</script>
