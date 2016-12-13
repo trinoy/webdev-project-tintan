@@ -2,7 +2,6 @@ var express = require('express');
 var cors = require('cors');
 var app = express();
 var xmlparser = require('express-xml-bodyparser');
-var app = express();
 //app.use(cors());
 //app.options('*', cors());
 
@@ -35,18 +34,24 @@ app.all('/*', function(req, res, next) {
 });
 
 var bodyParser = require('body-parser');
-
+var cookieParser = require('cookie-parser');
+var session      = require('express-session');
+//var ebay = require('ebay-api');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
+app.use(cookieParser());
+app.use(session({ secret: process.env.SESSION_SECRET  || "secret" }));
 
 // configure a public directory to host static content
 app.use(express.static(__dirname + '/public'));
+var passport = require('passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 
 //require("./assignment/app.js")(app);
-
+require("./ReWear/app.js")(app);
 
 //var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
 //var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;

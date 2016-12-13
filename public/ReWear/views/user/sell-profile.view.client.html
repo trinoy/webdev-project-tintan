@@ -56,7 +56,26 @@
             </div>
         </div>
 
-    </div>
+
+    <button class="label label-info">Follow <i class="fa fa-heart"></i></button>
+    <button class="label label-info">Like <i class="fa fa-thumbs-up"></i></button>
+    <button class="label label-info" uib-dropdown  ng-click="model.toggleDropdown(open)">
+      <a href id="simple-dropdown" uib-dropdown-toggle style="color: white">
+        Rate <i class="fa fa-star"></i>
+      </a>
+      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+        <li>
+          None
+        </li>
+          <li>
+          1
+        </li>
+          <li>
+          2
+        </li>
+      </ul>
+                    </button>
+        </div>
     <hr style="margin:8px auto">
 
     <div class="row">

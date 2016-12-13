@@ -3,124 +3,292 @@
         .module("ReWear")
         .controller("LoginController", LoginController)
         .controller("RegisterController", RegisterController)
-        .controller("ProfileController", ProfileController);
+        .controller("ProfileController", ProfileController)
+        .controller("ProfileEditController", ProfileEditController)
+        .controller("SellerProfileController", SellerProfileController);
 
-
-    function LoginController($location, UserService) {
+    function LoginController($location, $rootScope, UserService) {
         var vm = this;
         vm.login = login;
-        vm.addAlert = addAlert;
-        vm.closeAlert = closeAlert;
-
-        //vm.alerts = [{msg: 'Try Demo User bob and password bob'}];
-
-        vm.alerts = [{msg: 'Please Register to Continue'}];
-
-        function addAlert() {
-            vm.alerts.push({msg: 'Invalid Login Credentials'});
-        }
-
-        function closeAlert(index) {
-            vm.alerts.splice(index, 1);
-        }
+        vm.findEbayProd = findEbayProd;
 
         function login(user) {
-            vm.alerts.pop();
-            if (user != undefined) {
-                var promise = UserService.findUserByCredentials(user.username, user.password);
-                promise
-                    .success(function (user) {
-                        if (user === '0') {
-                            addAlert();
-                        } else {
+            if (!user || !user.username || !user.password) {
+                vm.error = "Username and Paassword are mandatory";
+            } else {
+                UserService
+                    .login(user)
+                    .then(
+                        function (response) {
+                            var user = response.data;
+                            $rootScope.currentUser = user;
                             $location.url("/user/" + user._id);
-                        }
-                    })
-                    .error(function (data) {
-                        console.log(data);
-                    });
-            }
-            else {
-                addAlert();
+                        },
+                        function (err) {
+                            vm.error = "Invalid Username and Password";
+                        });
             }
         }
+
+        function findEbayProd() {
+
+                UserService
+                    .findEbayProd()
+                    .then(
+                        function (response) {
+                            vm.error = "Ok";
+                        },
+                        function (err) {
+                            vm.error = "Invalid Username and Password";
+                        });
+
+        }
+
+
+
     }
 
-    function RegisterController($location, UserService) {
+    function RegisterController($location, $rootScope, UserService) {
         var vm = this;
         vm.register = register;
+        vm.confirmPassword;
 
         function register(user) {
-            if (user != undefined) {
-                user.firstName = "Test";
-                user.lastName = "Test";
-                UserService.createUser(user)
-                    .success(function (user) {
-                        if (user === '0') {
-                            //addAlert();
-                        } else {
-                            vm.user = user;
+            if (!user || !user.username || !user.password || !vm.confirmPassword || !user.email) {
+                vm.error = "Username, Password and Email are mandatory";
+            } else if (user.password === vm.confirmPassword) {
+                UserService
+                    .register(user)
+                    .then(
+                        function (response) {
+                            var user = response.data;
+                            $rootScope.currentUser = user;
                             $location.url("/user/" + user._id);
-                        }
-                    })
-                    .error(function (data) {
-                        console.log(data);
-                    });
+                        },
+                        function (err){
+                            vm.error = "Unable to register";
+                        })
+
+            } else {
+                vm.error = "Passwords in both fields don't match";
             }
         }
     }
 
-    function ProfileController($location,$routeParams, UserService) {
+    function ProfileController($location, $routeParams, $rootScope, UserService) {
         var vm = this;
-        vm.userId = $routeParams["uid"];
-        vm.title = "hello";
-        vm.user = {};
-
-        vm.updateProfile = updateProfile;
-        vm.init = init;
-        vm.deleteUser = deleteUser;
-
+        vm.userId = $rootScope.currentUser._id;;
+        vm.logout = logout;
         function init() {
             UserService.findUserById(vm.userId)
                 .success(function (user) {
-                    if (user === '0') {
-                        //addAlert();
-                    } else {
-                        vm.user = user;
-                    }
+                    vm.user = user;
                 })
-                .error(function (data) {
-                    console.log(data);
+                .error(function () {
+                    vm.error = "Unable to fetch user";
                 });
+
         }
 
         init();
 
-        function updateProfile(user) {
-            if (user != undefined) {
-                UserService.updateUser(vm.userId, user)
-                    .success(function (user) {
-                        init();
-                    })
-                    .error(function (data) {
-                        console.log(data);
-                    });
-            }
+
+        function updateUser(user) {
+            UserService.updateUser(vm.userId, user)
+                .success(function () {
+                    $location.url("/user");
+                })
+                .error(function () {
+                    vm.error = "Unable to update profile";
+                });
+
         }
 
-        function deleteUser(user) {
-            if (user != undefined) {
-                UserService.deleteUser(user._id)
-                    .success(function (data) {
-                        $location.url("/login");
-                    })
-                    .error(function (data) {
-                        console.log(data);
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
                     });
-            }
         }
 
 
     }
 
+    function ProfileEditController($location, $routeParams, $rootScope, UserService) {
+        var vm = this;
+        vm.userId = $rootScope.currentUser._id;;
+        vm.updateUser = updateUser;
+        vm.logout = logout;
+        function init() {
+            UserService.findUserById(vm.userId)
+                .success(function (user) {
+                    vm.user = user;
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch user";
+                });
+            RentalService.findRentalsByLender(vm.userId)
+                .success(function (lents) {
+                    vm.lents = lents;
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch other items lent by you";
+                });
+            RentalService.findRentalsByRenter(vm.userId)
+                .success(function (rents) {
+                    vm.rents = rents;
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch other items rented by you";
+                });
+            UserReviewService.findUserReviewForUserId(vm.userId)
+                .success(function (reviews) {
+                    vm.forReviews = reviews;
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch reviews on you";
+                });
+            UserReviewService.findUserReviewByUserId(vm.userId)
+                .success(function (reviews) {
+                    vm.byReviews = reviews;
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch reviews by you";
+                });
+            MessageService.findMessageForUserId(vm.userId)
+                .success(function (msgs) {
+                    vm.inbox = msgs;
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch inbox messages";
+                });
+            MessageService.findMessageByUserId(vm.userId)
+                .success(function (msgs) {
+                    vm.inbox = msgs;
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch sent messages";
+                });
+
+        }
+
+        init();
+
+
+        function updateUser(user) {
+            UserService.updateUser(vm.userId, user)
+                .success(function () {
+                    $location.url("/user");
+                })
+                .error(function () {
+                    vm.error = "Unable to update profile";
+                });
+
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+
+
+    }
+
+    function SellerProfileController($location, $routeParams, $rootScope, UserService) {
+        var vm = this;
+        vm.userId = $rootScope.currentUser._id;
+        vm.sellerId = $routeParams['sellerId'];
+        vm.logout = logout;
+        vm.addFollower = addFollower;
+        vm.addLike = addLike;
+        vm.postReview = postReview;
+        vm.sendMessage = sendMessage;
+        function init() {
+            UserService.findUserById(vm.userId)
+                .success(function (user) {
+                    vm.user = user;
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch user";
+                });
+            UserReviewService.findUserReviewForUserId(vm.sellerId)
+                .success(function (reviews) {
+                    vm.sellerReviews = reviews;
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch reviews on seller";
+                });
+
+        }
+
+        init();
+        function toggleDropdown($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.status.isopen = !$scope.status.isopen;
+        };
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+
+        function addFollower() {
+            UserService
+                .addFollowersForUserId(vm.userId, vm.sellerId)
+                .success(function () {
+                    $location.url("/#");//update seller url
+                })
+                .error(function () {
+                    vm.error = "Unable to follow";
+                });
+        }
+
+        function addLike() {
+            UserService
+                .addLikesForUserId(vm.userId, vm.sellerId)
+                .success(function () {
+                    $location.url("/#");//update seller url
+                })
+                .error(function () {
+                    vm.error = "Unable to like";
+                });
+        }
+
+        function postReview() {
+            UserReviewService
+                .createUserReview(review)
+                .success(function () {
+                    $location.url("/#");//update seller url
+                })
+                .error(function () {
+                    vm.error = "Unable to post review";
+                });
+        }
+
+        function sendMessage() {
+            MessageService
+                .createMessage(message)
+                .success(function () {
+                    $location.url("/#");//update seller url
+                })
+                .error(function () {
+                    vm.error = "Unable to send message";
+                });
+        }
+
+
+    }
 })();
