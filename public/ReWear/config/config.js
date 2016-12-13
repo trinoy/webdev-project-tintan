@@ -31,12 +31,6 @@
                 controller: "RegisterController",
                 controllerAs: "model"
             })
-            .when("/user/:uid", {
-             templateUrl: "views/user/profile.view.client.html",
-             controller: "ProfileController",
-             controllerAs: "model",
-             resolve: {loggedin: checkLoggedin}
-             })
             .when("/user/edit", {
                 templateUrl: "views/user/profile-edit.view.client.html",
                 controller: "ProfileEditController",
@@ -55,14 +49,14 @@
                 controllerAs: "model",
                 resolve: { loggedin: checkLoggedin }
             })
+            .when("/admin", {
+                templateUrl: "views/admin/admin.view.client.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "/login"
             });
-
-
-            /*.otherwise({
-                redirectTo: "/"
-            });*/
     }
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope) {

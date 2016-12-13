@@ -1,0 +1,72 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-sm-4 hidden-xs hidden-sm">
+            <a class="navbar-brand">
+                ReWear
+            </a>
+
+            <h4 class="navbar-text pull-right navbar-right">
+                Admin View
+            </h4>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="twPc-divStats twPc-div">
+            <ul class="twPc-Arrange ">
+                <li class="twPc-ArrangeSizeFit col-md-4 col-xs-12">
+                    <span class="twPc-StatLabel twPc-block">Users</span>
+                    <span class="twPc-StatValue">2</span>
+                </li>
+                <li class="twPc-ArrangeSizeFit col-md-4 col-xs-12">
+                    <span class="twPc-StatLabel twPc-block ">User Reviews</span>
+                    <span class="twPc-StatValue">21</span>
+                </li>
+                <li class="twPc-ArrangeSizeFit col-md-4 col-xs-12">
+                    <span class="twPc-StatLabel twPc-block ">Product Reviews</span>
+                    <span class="twPc-StatValue">32</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr/>
+    <div class="wrapper row detail-tab-margin">
+        <div class="col-md-12 col-xs-12" id="logout">
+            <div class="comment-tabs">
+                <ul class="nav nav-pills" role="tablist">
+                    <li class="active col-md-3 col-xs-12">
+                        <a class="reviews text-capitalize">
+                            <span href="#users" role="tab" data-toggle="tab">Users</span>
+                        </a>
+                    </li>
+                    <li class="col-md-3 col-xs-12">
+                        <a class="reviews text-capitalize">
+                            <span href="#user-rev" role="tab" data-toggle="tab">User Reviews</span>
+                        </a>
+                    </li>
+                    <li class="col-md-3 col-xs-12">
+                        <a class="reviews text-capitalize">
+                            <span href="#prod-rev" role="tab" data-toggle="tab">Product Reviews</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <hr/>
+            <div class="tab-content">
+                <div class="tab-pane active" id="users">
+                    <div ng-include="'views/admin/admin.users.view.client.html'"></div>
+                </div>
+                <div class="tab-pane " id="prod-rev">
+                    <div ng-include="'views/admin/admin.prodReviews.view.client.html'"></div>
+                </div>
+
+                <div class="tab-pane " id="user-rev">
+                    <div ng-include="'views/admin/admin.userReviews.view.client.html'"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

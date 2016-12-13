@@ -22,8 +22,8 @@ module.exports = function() {
     });
     var userModel = require("./user/user.model.server")();
     var rentalModel = require("./rental/rental.model.server")();
-    var productReviewModel = require("./productReview/productReview.model.server")();
-    var userReviewModel = require("./userReview/userReview.model.server")();
+    var productReviewModel = require("./productReview/productreview.model.server")();
+    var userReviewModel = require("./userReview/userreview.model.server")();
     var messageModel = require("./message/message.model.server")();
 
     var model = {
