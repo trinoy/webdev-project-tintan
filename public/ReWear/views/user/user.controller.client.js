@@ -117,7 +117,7 @@
 
     }
 
-    function ProfileEditController($location, $routeParams, $rootScope, UserService) {
+    function ProfileEditController($location, $routeParams, $rootScope, UserService, RentalService, UserReviewService, MessageService) {
         var vm = this;
         vm.userId = $rootScope.currentUser._id;;
         vm.updateUser = updateUser;
@@ -202,7 +202,7 @@
 
     }
 
-    function SellerProfileController($location, $routeParams, $rootScope, UserService) {
+    function SellerProfileController($location, $routeParams, $rootScope, UserService, UserReviewService, MessageService) {
         var vm = this;
         vm.userId = $rootScope.currentUser._id;
         vm.sellerId = $routeParams['sellerId'];
