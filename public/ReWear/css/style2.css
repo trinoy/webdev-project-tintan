@@ -25,7 +25,7 @@ body {
 }
 
 .navbar {
-    background-color: #337ab7;
+    background-color: #39a8af;
 }
 
 .navbar-default .navbar-text {
@@ -43,12 +43,12 @@ body {
 
 .list-group-item {
     border: 0px;
-    color: #337ab7;
+    color: #39a8af;
     padding-left: 0px;
 }
 
 a.list-group-item {
-    color: #337ab7;
+    color: #39a8af;
 }
 
 .list-text {
@@ -77,7 +77,7 @@ a.list-group-item {
 
 .verticalSep {
     width:1px;
-    background-color: #337ab7;
+    background-color: #39a8af;
     left: 33%;
     position: absolute;
     z-index: 10;
@@ -217,13 +217,13 @@ a.list-group-item {
 
 .nav-pills1 li{
     text-align: center;
-    color: #337ab7;
+    color: #39a8af;
     border-radius: 5px;
     height: 30px;
     padding-top: 5px;
 }
 .nav-pills1 li.active {
-    background-color: #337ab7;
+    background-color: #39a8af;
     color: #fff;
     border-radius: 5px;
 }
@@ -279,8 +279,8 @@ a.list-group-item {
 .tabHead{
     margin-top: 15px;
     color: #fff;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: #39a8af;
+    border-color: #39a8af;
 }
 
 .col-centered{
@@ -291,7 +291,7 @@ a.list-group-item {
 }
 
 .label1-info {
-    background-color: #337ab7;
+    background-color: #39a8af;
 }
 .label1 {
     display: inline;
@@ -306,7 +306,7 @@ a.list-group-item {
 .reviewPanel{
     margin-top: 15px;
     border-radius: 10px;
-    border-color: #337ab7   ;
+    border-color: #39a8af   ;
 }
 
 .rating {
@@ -348,4 +348,22 @@ ul.rating {
     font-family: cursive;
     padding-left: 20px;
     line-height: 45px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #39a8af !important;
+    border-color: #39a8af !important;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #39a8af !important;
+    border-color: #39a8af !important;
+}
+
+.btn-fb{
+    background-color: #3B5998 !important;
+    border-color: #3B5998 !important;
+    color: #fff;
 }

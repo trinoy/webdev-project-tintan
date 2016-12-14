@@ -1,30 +1,35 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
+        <div class="navbar-text pull-left leftnavs">
+            <a class="white-icon" href="#/products">
+                <i class="fa fa-arrow-left"></i>
+            </a>
+        </div>
+
         <div class="navbar-header">
             <a class="navbar-brand">
-                Profile
+                <span class="leftnavbran">ReWear</span>
             </a>
         </div>
-        <div class="navbar-text pull-right">
+
+        <div class="navbar-text pull-right rightnavs">
             <a class="white-icon" ng-click="model.logout()">
-                <span class="glyphicon glyphicon-log-out"></span>
+                <i class="fa fa-sign-out"></i>
             </a>
         </div>
-        <div class="navbar-text pull-right">
+        <div class="navbar-text pull-right rightnavs">
             <a class="white-icon" href="#/user/edit">
-                <span class="glyphicon glyphicon-edit"></span>
+                <span class="fa fa-edit"></span>
             </a>
         </div>
 
-        <div class="navbar-text pull-right">
+        <div class="navbar-text pull-right rightnavs">
             <a class="white-icon" href="#/">
-                <span class="glyphicon glyphicon-search"></span>
+                <span class="fa fa-search"></span>
             </a>
         </div>
-
     </div>
 </nav>
-
 
 <div class="container pull-content-down">
     <div ng-show="model.error" class="alert alert-danger" role="alert">
@@ -77,9 +82,7 @@
             <div class="tab-pane active" id="tabLent">
                 <div class="row">
                     <div class="panel panel-primary filterable">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Products Lent By You</h3>
-                        </div>
+
                         <table class="table">
                             <thead>
                             <tr class="filters">
@@ -104,9 +107,7 @@
             <div class="tab-pane" id="tabRent">
                 <div class="row">
                     <div class="panel panel-primary filterable">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Products Rented By You</h3>
-                        </div>
+
                         <table class="table">
                             <thead>
                             <tr class="filters">
