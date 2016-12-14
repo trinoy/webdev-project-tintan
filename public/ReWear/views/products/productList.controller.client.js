@@ -4,22 +4,13 @@
         .controller("ProductListController", ProductListController);
 
 
-    function ProductListController($location,ebayService,$rootScope,usSpinnerService,ngProgressLite) {
+    function ProductListController($location,ebayService,$rootScope,usSpinnerService,ngProgressLite, UserService) {
         var vm = this;
         vm.searchProducts = searchProducts;
-        var products1 = [{title: "card title1", cardText: "card Text 1", cardText2: "card Text 2"},
-            {title: "card title2", cardText: "card Text 1", cardText2: "card Text 2"},
-            {title: "card title3", cardText: "card Text 1", cardText2: "card Text 2"},
-            {title: "card title3", cardText: "card Text 1", cardText2: "card Text 2"},
-            {title: "card title3", cardText: "card Text 1", cardText2: "card Text 2"},
-            {title: "card title3", cardText: "card Text 1", cardText2: "card Text 2"},
-            {title: "card title3", cardText: "card Text 1", cardText2: "card Text 2"},
-            {title: "card title3", cardText: "card Text 1", cardText2: "card Text 2"}]
-        vm.products1 = products1;
 
         vm.searchTerm = "";
         vm.search = search;
-
+        vm.logout = logout;
 
         vm.startSpin = function() {
            // usSpinnerService.spin('spinner-1');
@@ -40,6 +31,15 @@
            // $location.url("/products");
         }
 
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
 
         function init(){
             if(!$rootScope)
@@ -51,6 +51,11 @@
             else if(window.sessionStorage.keyword !=undefined){
                 var encodedKey = window.sessionStorage.keyword.replace(/\s/g,",");
                 searchProducts(encodedKey);
+            }
+            if($rootScope){
+                if($rootScope.currentUser){
+                    vm.userId = $rootScope.currentUser._id;
+                }
             }
         }
 

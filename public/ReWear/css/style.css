@@ -1,9 +1,10 @@
 .main-text {
     position: absolute;
     top: 60%;
-    width: 94%;
+    width: 90%;
     color: #FFF;
     padding: 10px;
+    margin-left: 5% ;
 }
 
 .filter-margin {
@@ -54,8 +55,8 @@ html {
 }
 
 .navbar-default {
-    background-color: black !important;
-    border-color: black !important;
+    background-color: #39a8af !important;
+    border-color: #39a8af !important;
 }
 
 /*product list*/

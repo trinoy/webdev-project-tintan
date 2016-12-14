@@ -4,7 +4,7 @@
         .controller("ProductDetailController", ProductDetailController);
 
 
-    function ProductDetailController($location, $route, $routeParams, ebayService, ProductReviewService, $sce, RentalService, $rootScope, $scope) {
+    function ProductDetailController($location, $route, $routeParams, ebayService, ProductReviewService, UserService, $sce, RentalService, $rootScope, $scope) {
         var vm = this;
         vm.sizes = ['Small', 'Medium', 'Large'];
         vm.elementId = $routeParams["eid"];
@@ -24,7 +24,7 @@
         vm.addAlert = addAlert;
         vm.postProdReview = postProdReview;
         vm.getProductReviews = getProductReviews;
-
+        vm.logout = logout;
         vm.closeAlert = function (index) {
             vm.alerts.splice(index, 1);
         };
@@ -37,6 +37,16 @@
             getProductReviews(vm.elementId);
             findRentalsByProduct(vm.selectedOption,vm.elementId);
 
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
         }
 
         function toggleShowReview(show) {
