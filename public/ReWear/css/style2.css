@@ -367,3 +367,12 @@ ul.rating {
     border-color: #3B5998 !important;
     color: #fff;
 }
+
+.centernavs{
+    text-decoration: none;
+    color: white;
+    font-size: 1.25em;
+    font-family: sans-serif;
+    margin-left: 25%;
+    line-height: 45px;
+}

@@ -1,18 +1,27 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="row container-fluid">
-        <div class="col-sm-4 hidden-xs hidden-sm">
-            <div class="navbar-text pull-left leftnavs">
-                <a class="white-icon" href="#/">
-                    <i class="fa fa-arrow-left"></i>
-                </a>
-            </div>
-            <a class="navbar-brand">
-                ReWear
+    <div class="container-fluid">
+        <div class="navbar-text pull-left leftnavs">
+            <a class="white-icon" href="#/products">
+                <i class="fa fa-arrow-left"></i>
             </a>
+        </div>
 
-            <h4 class="navbar-text pull-right navbar-right">
-                Admin View
-            </h4>
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                <span class="leftnavbran">ReWear</span>
+            </a>
+        </div>
+
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                <span class="centernavs">Admin</span>
+            </a>
+        </div>
+
+        <div class="navbar-text pull-right rightnavs">
+            <a class="white-icon" ng-click="model.logout()">
+                <i class="fa fa-sign-out"></i>
+            </a>
         </div>
     </div>
 </nav>
@@ -75,3 +84,11 @@
         </div>
     </div>
 </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+        <div class="row navbar-text">
+
+        </div>
+    </div>
+</nav>
