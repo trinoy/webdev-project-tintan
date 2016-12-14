@@ -22,7 +22,12 @@
                         function (response) {
                             var user = response.data;
                             $rootScope.currentUser = user;
-                            $location.url("/");
+                            if($rootScope.currentUser.role=="ADMIN"){
+                                $location.url("/admin");
+                            }
+                            else{
+                                $location.url("/");
+                            }
                         },
                         function (err) {
                             vm.error = "Invalid Username and Password";

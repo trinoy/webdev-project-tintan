@@ -22,7 +22,7 @@ module.exports = function () {
 
 
     function findAllUser(){
-        return UserModel.find({});
+        return UserModel.find();
     }
 
     function createUser(user) {

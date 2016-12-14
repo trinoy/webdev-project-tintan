@@ -3,7 +3,7 @@
         .module("ReWear")
         .controller("LandingController", LandingController);
 
-    function LandingController($location, $rootScope, UserService) {
+    function LandingController($location,$route, $rootScope, UserService) {
         var vm = this;
         vm.searchTerm = "";
         vm.search = search;
@@ -22,7 +22,8 @@
                 .then(
                     function (response) {
                         $rootScope.currentUser = null;
-                        $location.url("/");
+                        //$location.url("/");
+                        $route.reload();
                     });
         }
 

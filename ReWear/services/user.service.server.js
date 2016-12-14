@@ -39,6 +39,7 @@ module.exports = function (app, model) {
     app.post('/api/logout', logout);
     app.post('/api/register', register);
     app.get('/api/loggedin', loggedin);
+    app.post('/api/checkAdmin', checkAdmin);
     app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
@@ -307,6 +308,19 @@ module.exports = function (app, model) {
 
     function loggedin(req, res) {
         res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function checkAdmin(req, res) {
+        var loggedIn = req.isAuthenticated();
+        var isAdmin = false;
+        if(req.user!=undefined){
+            isAdmin = req.user.role == "ADMIN";
+        }
+        if(loggedIn && isAdmin) {
+            res.json(req.user);
+        } else {
+            res.send('0');
+        }
     }
 
     function facebookStrategy(token, refreshToken, profile, done) {

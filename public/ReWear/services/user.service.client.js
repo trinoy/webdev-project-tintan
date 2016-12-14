@@ -16,7 +16,8 @@
             "addLikesForUserId" : addLikesForUserId,
             "login" : login,
             "logout" : logout,
-            "register": register
+            "register": register,
+            "checkAdmin": checkAdmin
 
         };
         return api;
@@ -79,6 +80,10 @@
         }
         function findEbayProd() {
             return $http.get("/api/ebay");
+        }
+
+        function checkAdmin() {
+            return $http.post("/api/checkAdmin");
         }
 
 

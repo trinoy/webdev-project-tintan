@@ -53,7 +53,10 @@
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.client.html",
                 controller: "AdminController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    checkAdmin: checkAdmin
+                }
             })
             .otherwise({
                 redirectTo: "/login"
@@ -77,7 +80,25 @@
                 $location.url('/login');
             });
         return deferred.promise;
-    };
+    }
+
+    function checkAdmin($q, UserService, $location) {
+        var deferred = $q.defer();
+        UserService
+            .checkAdmin()
+            .success(
+                function (user) {
+                    if(user != '0') {
+                        $location.url('/admin');
+                        deferred.resolve();
+                    } else {
+                        deferred.reject();
+                        $location.url("/login");
+                    }
+                }
+            );
+        return deferred.promise;
+    }
 
 
 })();
