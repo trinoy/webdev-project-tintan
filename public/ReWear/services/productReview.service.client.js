@@ -8,7 +8,8 @@
             "createProductReview": createProductReview,
             "findProductReviewByUser": findProductReviewByUser,
             "findReviewsByProduct": findReviewsByProduct,
-            "deleteProductReview": deleteProductReview
+            "deleteProductReview": deleteProductReview,
+            "findAllProductReviews" :findAllProductReviews
 
         };
         return api;
@@ -25,6 +26,11 @@
 
         function findReviewsByProduct(productId) {
             var url = "/api/product/"+productId+"/productReview";
+            return $http.get(url);
+        }
+
+        function findAllProductReviews() {
+            var url = "/api/productReview/all";
             return $http.get(url);
         }
 

@@ -2,6 +2,7 @@ module.exports = function(app, model) {
 
     app.post('/api/user/:userId/productReview', createProductReview);
     app.get('/api/user/:userId/productReview', findProductReviewByUser);
+    app.get('/api/productReview/all', findAllProductReview);
     app.get('/api/product/:productId/productReview', findReviewsByProduct);
     app.delete('/api/productReview/:reviewId', deleteProductReview);
 
@@ -22,6 +23,25 @@ module.exports = function(app, model) {
                     res.sendStatus(400).send(error);
                 }
             );
+    }
+
+    function findAllProductReview(req, res) {
+        model
+            .productReviewModel
+            .findAllProductReview()
+            .then(
+                function (reviews) {
+                    if (reviews.length > 0) {
+                        res.json(reviews);
+                    } else {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
+
     }
 
     function findReviewsByProduct(req, res){

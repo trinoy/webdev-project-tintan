@@ -29,6 +29,7 @@ module.exports = function (app, model) {
     app.post('/api/upload', upload.single('myFile'), uploadImage);
     app.post('/api/user', createUser);
     app.get('/api/user', findUser);
+    app.get('/api/user/all', findAllUser);
     app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
@@ -44,6 +45,26 @@ module.exports = function (app, model) {
             successRedirect: '/project/index.html#/user',
             failureRedirect: '/project/index.html#/login'
         }));
+
+    function findAllUser(req, res) {
+        model
+            .userModel
+            .findAllUser()
+            .then(
+                function (users) {
+                    if (users.length > 0) {
+                        res.json(users);
+                    } else {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
+
+    }
+
     function findUser(req, res) {
         var query = req.query;
         if (query.password && query.username) {

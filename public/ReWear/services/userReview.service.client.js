@@ -8,7 +8,8 @@
             "createUserReview": createUserReview,
             "findUserReviewByUserId": findUserReviewByUserId,
             "findUserReviewForUserId": findUserReviewForUserId,
-            "deleteUserReview": deleteUserReview
+            "deleteUserReview": deleteUserReview,
+            "findAllUserReviews" : findAllUserReviews
 
         };
         return api;
@@ -25,6 +26,11 @@
 
         function findUserReviewForUserId(userId) {
             var url = "/api/user/"+userId+"/userReviewFor";
+            return $http.get(url);
+        }
+
+        function findAllUserReviews() {
+            var url = "/api/userReview/all";
             return $http.get(url);
         }
 

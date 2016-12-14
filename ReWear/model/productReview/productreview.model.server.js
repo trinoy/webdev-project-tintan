@@ -6,12 +6,17 @@ module.exports = function() {
 
     var api = {
         createProductReview: createProductReview,
+        findAllProductReview : findAllProductReview,
         findProductReviewByUser: findProductReviewByUser,
         findReviewsByProduct: findReviewsByProduct,
         deleteProductReview: deleteProductReview
     };
     return api;
 
+
+    function findAllProductReview(review){
+        return ProductReviewModel.find({});
+    }
 
 
     function createProductReview(review){

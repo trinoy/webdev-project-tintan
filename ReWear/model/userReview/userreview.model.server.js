@@ -8,11 +8,14 @@ module.exports = function() {
         createUserReview: createUserReview,
         deleteUserReview: deleteUserReview,
         findUserReviewByUserId: findUserReviewByUserId,
+        findAllUserReview:findAllUserReview,
         findUserReviewForUserId: findUserReviewForUserId
     };
     return api;
 
-
+    function findAllUserReview(review){
+        return UserReviewModel.find({});
+    }
 
     function createUserReview(review){
         return UserReviewModel.create(review);
