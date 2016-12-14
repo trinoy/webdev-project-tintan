@@ -35,6 +35,7 @@
             getProductDetails(vm.elementId);
             getRelatedProducts(vm.elementId);
             getProductReviews(vm.elementId);
+            findRentalsByProduct(vm.selectedOption,vm.elementId);
 
         }
 
@@ -128,9 +129,9 @@
                 });
         }
 
-        function findRentalsByProduct() {
-            var size = vm.selectedOption;
-            RentalService.findRentalsByProduct(vm.productDetail.ItemID, size)
+        function findRentalsByProduct(size,itemId) {
+            //var size = vm.selectedOption;
+            RentalService.findRentalsByProduct(itemId, size)
                 .success(function (rentals) {
                     if (rentals === '0') {
                         //addAlert();

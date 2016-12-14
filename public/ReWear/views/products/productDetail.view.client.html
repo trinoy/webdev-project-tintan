@@ -47,7 +47,8 @@
                            aria-label="Amount (to the nearest dollar)" placeholder="Whats Your Deal">
                 </div>
                 <div class="action rent-button">
-                    <button ng-click="model.findRentalsByProduct()" ng-show="model.mode=='Rent'"class="btn btn-primary"
+                    <button ng-click="model.findRentalsByProduct(model.selectedOption,model.elementId)"
+                            ng-show="model.mode=='Rent'"class="btn btn-primary"
                             type="button">Find Renters</button>
                     <button ng-click="model.createRental()" ng-show="model.mode=='Lent'" class="btn btn-primary"
                             type="button">Lend It</button>
@@ -65,10 +66,10 @@
                         <span class="title">Renters</span>
                     </div>
                     <ul class="list-group seller-height" id="contact-list">
-                        <li ng-show="!model.lenders.length">No Renters Found</li>
+                        <li ng-show="!model.rentals.length">No Renters Found</li>
                         <li class="list-group-item" ng-repeat="rental in model.rentals">
                             <div class="col-xs-12 col-sm-3 cold-md-3 col-lg-3">
-                                <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="Test Test"
+                                <img ng-src="{{rental.lender.url}}" alt="Test Test"
                                      class="img-responsive img-circle"/>
                             </div>
                             <div class="col-xs-12 col-sm-6">
