@@ -92,7 +92,7 @@
                 .then(
                     function (response) {
                         $rootScope.currentUser = null;
-                        $location.url("/");
+                        $location.url("/login");
                     });
         }
     }

@@ -58,8 +58,8 @@
         vm.confirmPassword;
 
         function register(user) {
-            if (!user || !user.username || !user.password || !vm.confirmPassword || !user.email) {
-                vm.error = "Username, Password and Email are mandatory";
+            if (!user || !user.username || !user.password || !vm.confirmPassword || !user.email || !user.firstName || !user.lastName ) {
+                vm.error = "All fields are mandatory";
             } else if (user.password === vm.confirmPassword) {
                 UserService
                     .register(user)
