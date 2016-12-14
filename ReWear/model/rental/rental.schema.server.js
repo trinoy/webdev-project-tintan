@@ -9,7 +9,7 @@ module.exports = function() {
         lender: {type: mongoose.Schema.Types.ObjectId, ref:'UserModel'},
         renter: {type: mongoose.Schema.Types.ObjectId, ref:'UserModel'},
         available: {type: Boolean, default: true},
-        dateCreated: {type: Date, default: Date.now},
+        dateCreated: {type: Date, default: Date.now}
     }, {collection: "rental"});
 
     return RentalSchema;

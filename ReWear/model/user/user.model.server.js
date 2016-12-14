@@ -27,8 +27,8 @@ module.exports = function () {
     function findUserById(userId) {
         // UserModel.find({_id: userId}); //--- returns an array
         return UserModel.findById(userId)
-            .populate("followers", "username firstName lastName")
-            .populate("likes", "username firstName lastName")
+            .populate("followers", "username firstName lastName url")
+            .populate("likes", "username firstName lastName url")
             .exec(); //--- returns an object
     }
 

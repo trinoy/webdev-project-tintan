@@ -32,18 +32,17 @@
 
         function findEbayProd() {
 
-                UserService
-                    .findEbayProd()
-                    .then(
-                        function (response) {
-                            vm.error = "Ok";
-                        },
-                        function (err) {
-                            vm.error = "Invalid Username and Password";
-                        });
+            UserService
+                .findEbayProd()
+                .then(
+                    function (response) {
+                        vm.error = "Ok";
+                    },
+                    function (err) {
+                        vm.error = "Invalid Username and Password";
+                    });
 
         }
-
 
 
     }
@@ -65,7 +64,7 @@
                             $rootScope.currentUser = user;
                             $location.url("/user");
                         },
-                        function (err){
+                        function (err) {
                             vm.error = "Unable to register";
                         })
 
@@ -77,7 +76,8 @@
 
     function ProfileController($location, $routeParams, $rootScope, UserService, RentalService, UserReviewService, MessageService) {
         var vm = this;
-        vm.userId = $rootScope.currentUser._id;;
+        vm.userId = $rootScope.currentUser._id;
+        ;
         vm.logout = logout;
         function init() {
             UserService.findUserById(vm.userId)
@@ -161,7 +161,8 @@
 
     function ProfileEditController($location, $routeParams, $rootScope, UserService) {
         var vm = this;
-        vm.userId = $rootScope.currentUser._id;;
+        vm.userId = $rootScope.currentUser._id;
+        ;
         vm.updateUser = updateUser;
         vm.logout = logout;
         function init() {
@@ -201,7 +202,7 @@
 
     }
 
-    function SellerProfileController($location, $route, $routeParams, $rootScope, UserService, UserReviewService, MessageService,$scope) {
+    function SellerProfileController($location, $route, $routeParams, $rootScope, UserService, UserReviewService, RentalService, MessageService, $scope, ebayService) {
         var vm = this;
         vm.userId = $routeParams['uid'];
         vm.sellerId = $routeParams['sid'];
@@ -211,8 +212,9 @@
         vm.postReview = postReview;
         vm.sendMessage = sendMessage;
         vm.toggleShowReview = toggleShowReview;
+        vm.getOtherProducts = getOtherProducts;
         vm.rating = 0;
-            function init() {
+        function init() {
             vm.showReview = false;
             UserService.findUserById(vm.sellerId)
                 .success(function (seller) {
@@ -228,12 +230,13 @@
                 .error(function () {
                     vm.error = "Unable to fetch reviews on seller";
                 });
-
+            getOtherProducts();
         }
 
         function toggleShowReview(show) {
             vm.showReview = show;
         }
+
         function logout() {
             UserService
                 .logout()
@@ -301,6 +304,32 @@
 
         $scope.getSelectedRating = function (rating) {
             vm.rating = rating;
+        }
+
+        function getOtherProducts() {
+            RentalService.findRentalsByLender(vm.userId)
+                .success(function (lents) {
+                    vm.lents = lents;
+                    if(lents){
+                        for(i in lents){
+                            if(lents[i].available){
+                                ebayService.getProductDetail(vm.elementId)
+                                    .then(function (product) {
+                                            vm.otherProducts.push(product.Item);
+                                        },
+                                        function (error) {
+                                            //
+                                            console.log('error');
+                                        }
+                                    )
+                            }
+                        }
+                    }
+                })
+                .error(function () {
+                    vm.error = "Unable to fetch other items lent by you";
+                });
+
         }
 
         init();

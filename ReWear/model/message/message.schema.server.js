@@ -8,7 +8,7 @@ module.exports = function() {
         byEmail: String,
         subject: String,
         description: {type: String, required: true},
-        dateCreated: {type: Date, default: Date.now},
+        dateCreated: {type: Date, default: Date.now}
     }, {collection: "message"});
 
     return MessageSchema;

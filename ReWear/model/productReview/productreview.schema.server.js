@@ -8,7 +8,7 @@ module.exports = function() {
         title: String,
         description: String,
         rating: {type: Number, required: true, default: 0, enum: [0, 1, 2, 3, 4, 5]},
-        dateCreated: {type: Date, default: Date.now},
+        dateCreated: {type: Date, default: Date.now}
     }, {collection: "productreview"});
 
     return ProductReviewSchema;

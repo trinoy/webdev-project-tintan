@@ -29,14 +29,20 @@ module.exports = function () {
         return RentalModel.find( //use alternatively findOne
             {
                 lender: userId
-            });
+            })
+            .populate("lender", "username firstName lastName url")
+            .populate("renter", "username firstName lastName url")
+            .exec();
     }
 
     function findRentalsByRenter(userId) {
         return RentalModel.find( //use alternatively findOne
             {
                 renter: userId
-            });
+            })
+            .populate("lender", "username firstName lastName url")
+            .populate("renter", "username firstName lastName url")
+            .exec();
     }
 
     function findRentalsByProduct(productId, size) {
@@ -47,7 +53,7 @@ module.exports = function () {
                 available: true
             })
             .populate("lender", "firstName lastName email phone url")
-            .exec();;
+            .exec();
     }
 
     function updateRental(rentalId, rental) {

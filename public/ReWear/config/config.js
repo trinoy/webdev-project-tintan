@@ -39,7 +39,7 @@
                 resolve: {loggedin: checkLoggedin}
             })
             .when("/user/:uid/seller/:sid", {
-                templateUrl: "views/user/sell-profile.view.client.html",
+                templateUrl: "views/user/seller-profile.view.client.html",
                 controller: "SellerProfileController",
                 controllerAs: "model",
 

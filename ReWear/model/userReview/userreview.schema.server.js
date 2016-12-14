@@ -8,7 +8,7 @@ var UserReviewSchema = mongoose.Schema({
     title: String,
     description: String,
     rating: {type: Number, default: 0, enum: [0, 1, 2, 3, 4, 5]},
-    dateCreated: {type: Date, default: Date.now},
+    dateCreated: {type: Date, default: Date.now}
 }, {collection: "userreview"});
 
 return UserReviewSchema;

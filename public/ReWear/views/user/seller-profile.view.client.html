@@ -109,29 +109,32 @@
         <div class="tab-content clearfix">
             <div class="tab-pane active" id="tabLent">
                 <div class="row">
-                    <div class="panel panel-primary filterable">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Products Lent By You</h3>
+
+                        <div class="row panel-table-margin list-group">
+                            <div class="item card-box col-md-3 col-sm-12 col-xs-12 col-lg-3"
+                                 ng-repeat="prod in model.otherProducts">
+                                <div class="thumbnail">
+                                    <a class="ebay" target="_blank" href="{{prod.viewItemURL}}">
+                                        <img class="ebay-image" src="image/ebay.png">
+                                    </a>
+                                    <h4 class="box-header">{{prod.title}}</h4>
+                                    <h7>{{prod.primaryCategoryName}}</h7>
+                                    <img class="group list-group-image image-rel-prod" ng-src="{{prod.imageURL}}"/>
+                                    <div class="row card-button">
+                                        <div>
+                                            <span>
+                                                <a class="btn btn-primary" href="#/productDetail/{{prod.itemId}}">Lend</a>
+                                            </span>
+                                            <span>
+                                                <a class="btn btn-danger"
+                                                   href="#/productDetail/{{product.itemId}}">Rent</a>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                        <table class="table">
-                            <thead>
-                            <tr class="filters">
-                                <th><input type="text" class="form-control" placeholder="Product" disabled></th>
-                                <th><input type="text" class="form-control" placeholder="Size" disabled></th>
-                                <th><input type="text" class="form-control" placeholder="Price" disabled></th>
-                                <th><input type="text" class="form-control" placeholder="Renter" disabled></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="lent in model.lents">
-                                <td><a href="#/productDetail/{lent.productId}}">{{lent.productId}}</a></td>
-                                <td>{{lent.size}}</td>
-                                <td>{{lent.price}}</td>
-                                <td>{{lent.renter}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
             <div class="tab-pane" id="tabRvw">

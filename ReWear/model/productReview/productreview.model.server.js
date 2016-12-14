@@ -19,7 +19,9 @@ module.exports = function() {
     }
 
     function findProductReviewByUser(userId){
-        return ProductReviewModel.find({by: userId}); //--- returns an array
+        return ProductReviewModel.find({by: userId})
+            .populate("by", "username firstName lastName")
+            .exec();//--- returns an array
     }
 
     function deleteProductReview(reviewId){
@@ -30,7 +32,9 @@ module.exports = function() {
     }
 
     function findReviewsByProduct(productId) {
-        return ProductReviewModel.find({'productId': productId});
+        return ProductReviewModel.find({'productId': productId})
+            .populate("by", "username firstName lastName")
+            .exec();
     }
 
 }

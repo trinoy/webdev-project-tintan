@@ -26,11 +26,17 @@ module.exports = function() {
     }
 
     function findMessageByUserId(userId) {
-        return MessageModel.find({'by': userId});
+        return MessageModel.find({'by': userId})
+            .populate("by", "username firstName lastName url")
+            .populate("for", "username firstName lastName url")
+            .exec();;
     }
 
     function findMessageForUserId(userId) {
-        return MessageModel.find({'for': userId});
+        return MessageModel.find({'for': userId})
+            .populate("by", "username firstName lastName url")
+            .populate("for", "username firstName lastName url")
+            .exec();;
     }
 
 }

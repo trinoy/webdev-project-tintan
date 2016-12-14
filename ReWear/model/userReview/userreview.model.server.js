@@ -26,12 +26,18 @@ module.exports = function() {
     }
 
     function findUserReviewByUserId(userId){
-        return UserReviewModel.find({'by': userId});
+        return UserReviewModel.find({'by': userId})
+            .populate("by", "username firstName lastName")
+            .populate("for", "username firstName lastName")
+            .exec();
         //return UserReviewModel.find(userId).populate("websites", "name").exec();
     }
 
     function findUserReviewForUserId(userId) {
-        return UserReviewModel.find({'for': userId});
+        return UserReviewModel.find({'for': userId})
+            .populate("by", "username firstName lastName")
+            .populate("for", "username firstName lastName")
+            .exec();
     }
 
 }

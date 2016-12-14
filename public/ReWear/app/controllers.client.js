@@ -18,5 +18,5 @@ function loadScript(url,callback) {
 }
 
 function callback(){
-    alert("HI");
+    //alert("HI");
 }
