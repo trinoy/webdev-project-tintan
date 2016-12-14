@@ -16,11 +16,11 @@ module.exports = function (app, model) {
 
     var FacebookStrategy = require('passport-facebook').Strategy;
     var facebookConfig = {
-        clientID: process.env.FACEBOOK_CLIENT_ID || "1361521017254995",
-        clientSecret: process.env.FACEBOOK_CLIENT_SECRET || "8c7201e2da6ca68b76d493bf5a39ea17",
+        clientID: process.env.FACEBOOK_CLIENT_ID || "1086154441510621",
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET || "df2a2ae9e4677aa5824b985fe78dd308",
         callbackURL: process.env.FACEBOOK_CALLBACK_URL || "http://localhost:3000/auth/facebook/callback"
     };
-    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
@@ -46,6 +46,8 @@ module.exports = function (app, model) {
             successRedirect: '/ReWear/index.html#/user',
             failureRedirect: '/ReWear/index.html#/login'
         }));
+
+    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
     function findAllUser(req, res) {
         model
