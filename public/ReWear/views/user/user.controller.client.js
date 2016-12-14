@@ -218,6 +218,7 @@
         vm.sendMessage = sendMessage;
         vm.toggleShowReview = toggleShowReview;
         vm.getOtherProducts = getOtherProducts;
+        vm.otherProducts = [];
         vm.rating = 0;
         function init() {
             vm.showReview = false;
@@ -312,13 +313,13 @@
         }
 
         function getOtherProducts() {
-            RentalService.findRentalsByLender(vm.userId)
+            RentalService.findRentalsByLender(vm.sellerId)
                 .success(function (lents) {
                     vm.lents = lents;
                     if(lents){
                         for(i in lents){
                             if(lents[i].available){
-                                ebayService.getProductDetail(vm.elementId)
+                                ebayService.getProductDetail(lents[i].productId)
                                     .then(function (product) {
                                             vm.otherProducts.push(product.Item);
                                         },

@@ -25,6 +25,7 @@
         vm.postProdReview = postProdReview;
         vm.getProductReviews = getProductReviews;
         vm.logout = logout;
+        vm.userID = $rootScope.currentUser._id;
         vm.closeAlert = function (index) {
             vm.alerts.splice(index, 1);
         };

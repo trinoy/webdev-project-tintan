@@ -126,20 +126,17 @@
                             <div class="item card-box col-md-3 col-sm-12 col-xs-12 col-lg-3"
                                  ng-repeat="prod in model.otherProducts">
                                 <div class="thumbnail">
-                                    <a class="ebay" target="_blank" href="{{prod.viewItemURL}}">
+                                    <a class="ebay" target="_blank" href="{{prod.ViewItemURLForNaturalSearch}}">
                                         <img class="ebay-image" src="image/ebay.png">
                                     </a>
-                                    <h4 class="box-header">{{prod.title}}</h4>
+                                    <h4 class="box-header">{{prod.Title}}</h4>
                                     <h7>{{prod.primaryCategoryName}}</h7>
-                                    <img class="group list-group-image image-rel-prod" ng-src="{{prod.imageURL}}"/>
+                                    <img class="group list-group-image image-rel-prod" ng-src="{{prod.PictureURL[0]}}"/>
                                     <div class="row card-button">
                                         <div>
                                             <span>
-                                                <a class="btn btn-primary" href="#/productDetail/{{prod.itemId}}">Lend</a>
-                                            </span>
-                                            <span>
-                                                <a class="btn btn-danger"
-                                                   href="#/productDetail/{{product.itemId}}">Rent</a>
+                                                <a class="btn btn-primary" href="#/productDetail/{{prod.ItemID}}">
+                                                    Details</a>
                                             </span>
                                         </div>
                                     </div>
