@@ -140,7 +140,7 @@
                                 <span>{{review.by}}</span>
                                 <span class ="pull-right">
                                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                                        <span>{{review.dateCreated}}</span>
+                                        <span>{{review.dateCreated  | date: MMM/yyyy}}</span>
                                         </span>
 
                             </div>
@@ -176,7 +176,7 @@
                                 <span>{{review.by}}</span>
                                 <span class ="pull-right">
                                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                                        <span>{{review.dateCreated}}</span>
+                                        <span>{{review.dateCreated  | date: MMM/yyyy}}</span>
                                         </span>
 
                             </div>
@@ -211,20 +211,6 @@
                                 <div class="media-body">
                                     <div><span class="name">{{fol.firstName}} {{fol.lastName}}</span></div>
                                     <small>{{fol.username}}</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <span class="avatar">
-                                        <img src="https://app.nimia.com/static/img/default_profile.png" alt="">
-                                        <i></i>
-                                    </span>
-                                </div>
-                                <div class="media-body">
-                                    <div><span class="name">Ronnie Ellis</span></div>
-                                    <small>@kingronnie24</small>
                                 </div>
                             </div>
                         </li>

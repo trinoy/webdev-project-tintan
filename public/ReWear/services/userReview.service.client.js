@@ -13,8 +13,8 @@
         };
         return api;
 
-        function createUserReview(userId, review) {
-            var url = "/api/user/"+userId+"/userReview";
+        function createUserReview(review) {
+            var url = "/api/userReview";
             return $http.post(url, review);
         }
 

@@ -48,33 +48,52 @@
 
                 <h5>Member Since: <a href="http://gridle.in">{{model.seller.dateCreated | date: MMM/yyyy}}</a></h5>
 
+                <div>
+                    <button class="label1 label1-info" ng-click="model.addFollower()">Follow <i class="fa fa-heart"></i></button>
+                    <button class="label1 label1-info" ng-click="model.addLike()">Like <i class="fa fa-thumbs-up"></i></button>
+                    <button class="label1 label1-info" ng-click="model.toggleShowReview(true)">Rate <i class="fa fa-star"></i></button>
+                </div>
+
+                <div class="reviewPanel" ng-show="model.showReview">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
 
 
+                            <div>
+                                <span ng-repeat="rating in ratings">{{rating.current}} out of {{rating.max}}
+
+                                        <div star-rating rating-value="rating.current" max="rating.max"
+                                             on-rating-selected="getSelectedRating(rating)"></div>
+                                </span>
+                            </div>
 
 
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone blue"></i></span>
+                                    <input type="text" name="title" ng-model="model.review.title" placeholder="Title" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-comment blue"></i></span>
+                                    <textarea name="desc" ng-model="model.review.description" rows="6" placeholder="Description" class="form-control" type="text" required></textarea>
+                                </div>
+                            </div>
+                            <div>
+                                <a ng-click="model.postReview(model.review)" class="btn btn-primary">Post</a>
+                                <a class="btn btn-danger"
+                                   ng-click="model.toggleShowReview(false)">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
 
             </div>
         </div>
 
-
-    <button class="label label-info" ng-click="model.addFollower()">Follow <i class="fa fa-heart"></i></button>
-    <button class="label label-info" ng-click="model.addLike()">Like <i class="fa fa-thumbs-up"></i></button>
-    <button class="label label-info" uib-dropdown  ng-click="model.toggleDropdown(open)">
-      <a href id="simple-dropdown" uib-dropdown-toggle style="color: white">
-        Rate <i class="fa fa-star"></i>
-      </a>
-      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-        <li>
-          None
-        </li>
-          <li>
-          1
-        </li>
-          <li>
-          2
-        </li>
-      </ul>
-                    </button>
         </div>
     <hr style="margin:8px auto">
 
@@ -133,7 +152,7 @@
                                 <span>{{review.by}}</span>
                                 <span class ="pull-right">
                                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                                        <span>{{review.dateCreated}}</span>
+                                        <span>{{review.dateCreated  | date: MMM/yyyy}}</span>
                                         </span>
 
                             </div>
@@ -168,20 +187,6 @@
                                 <div class="media-body">
                                     <div><span class="name">{{fol.firstName}} {{fol.lastName}}</span></div>
                                     <small>{{fol.username}}</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <span class="avatar">
-                                        <img src="https://app.nimia.com/static/img/default_profile.png" alt="">
-                                        <i></i>
-                                    </span>
-                                </div>
-                                <div class="media-body">
-                                    <div><span class="name">Ronnie Ellis</span></div>
-                                    <small>@kingronnie24</small>
                                 </div>
                             </div>
                         </li>
@@ -229,14 +234,13 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-comment blue"></i></span>
-                                            <textarea name="msg" ng-model="model.message.description" rows="6" class="form-control" type="text" required></textarea>
+                                            <textarea name="msg" ng-model="model.message.description" rows="6" placeholder="Description" class="form-control" type="text" required></textarea>
                                         </div>
                                     </div>
-                                    <div class="">
+                                    <div>
                                         <button ng-click="model.sendMessage(message)" class="btn btn-info pull-right">Send <span class="glyphicon glyphicon-send"></span></button>
                                     </div>
                                 </div>
-                            </form>
                         </div>
                     </div>
             </div>

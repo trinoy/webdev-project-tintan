@@ -201,7 +201,7 @@
 
     }
 
-    function SellerProfileController($location, $routeParams, $rootScope, UserService, UserReviewService, MessageService) {
+    function SellerProfileController($location, $route, $routeParams, $rootScope, UserService, UserReviewService, MessageService,$scope) {
         var vm = this;
         vm.userId = $routeParams['uid'];
         vm.sellerId = $routeParams['sid'];
@@ -210,7 +210,10 @@
         vm.addLike = addLike;
         vm.postReview = postReview;
         vm.sendMessage = sendMessage;
-        function init() {
+        vm.toggleShowReview = toggleShowReview;
+        vm.rating = 0;
+            function init() {
+            vm.showReview = false;
             UserService.findUserById(vm.sellerId)
                 .success(function (seller) {
                     vm.seller = seller;
@@ -228,12 +231,9 @@
 
         }
 
-        init();
-        function toggleDropdown($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.status.isopen = !$scope.status.isopen;
-        };
+        function toggleShowReview(show) {
+            vm.showReview = show;
+        }
         function logout() {
             UserService
                 .logout()
@@ -248,7 +248,7 @@
             UserService
                 .addFollowersForUserId(vm.userId, vm.sellerId)
                 .success(function () {
-                    $location.url("/#");//update seller url
+                    $route.reload();
                 })
                 .error(function () {
                     vm.error = "Unable to follow";
@@ -259,7 +259,7 @@
             UserService
                 .addLikesForUserId(vm.userId, vm.sellerId)
                 .success(function () {
-                    $location.url("/#");//update seller url
+                    $route.reload();
                 })
                 .error(function () {
                     vm.error = "Unable to like";
@@ -269,10 +269,11 @@
         function postReview(review) {
             review.by = vm.userId;
             review.for = vm.sellerId;
+            review.rating = vm.rating;
             UserReviewService
                 .createUserReview(review)
                 .success(function () {
-                    $location.url("/#");//update seller url
+                    $route.reload();
                 })
                 .error(function () {
                     vm.error = "Unable to post review";
@@ -285,13 +286,23 @@
             MessageService
                 .createMessage(message)
                 .success(function () {
-                    $location.url("/#");//update seller url
+                    $route.reload();
                 })
                 .error(function () {
                     vm.error = "Unable to send message";
                 });
         }
 
+        $scope.rating = 0;
+        $scope.ratings = [{
+            current: 0,
+            max: 5
+        }];
 
+        $scope.getSelectedRating = function (rating) {
+            vm.rating = rating;
+        }
+
+        init();
     }
 })();

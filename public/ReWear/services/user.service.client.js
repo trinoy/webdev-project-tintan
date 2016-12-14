@@ -58,12 +58,12 @@
         }
 
         function addFollowersForUserId(userId, sellerId) {
-            var url = "/api/user/"+userId;+"/seller/"+sellerId+"/follow";
+            var url = "/api/user/"+userId+"/seller/"+sellerId+"/follow";
             return $http.put(url);
         }
 
         function addLikesForUserId(userId, sellerId) {
-            var url = "/api/user/"+userId;+"/seller/"+sellerId+"/like";
+            var url = "/api/user/"+userId+"/seller/"+sellerId+"/like";
             return $http.put(url);
         }
 

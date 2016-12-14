@@ -57,7 +57,8 @@ module.exports = function () {
                 lastName: user.lastName,
                 email: user.email,
                 phone: user.phone,
-                address: user.address
+                address: user.address,
+                url: user.url
             });
     }
 

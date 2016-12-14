@@ -3,7 +3,7 @@ module.exports = function (app, model) {
     var mime = require('mime'); // npm install mime --save
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, __dirname + '/../../public/project/uploads')
+            cb(null, __dirname + '/../../public/ReWear/uploads')
         },
         filename: function (req, file, cb) {
             cb(null, file.fieldname + '-' + Date.now() + '.' + mime.extension(file.mimetype));
@@ -32,8 +32,8 @@ module.exports = function (app, model) {
     app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
-    app.put('/api/user/:uid/seller/sellerId/follow', addFollowersForUserId);
-    app.put('/api/user/:uid/seller/sellerId/like', addLikesForUserId);
+    app.put('/api/user/:uid/seller/:sellerId/follow', addFollowersForUserId);
+    app.put('/api/user/:uid/seller/:sellerId/like', addLikesForUserId);
     app.post('/api/login', passport.authenticate('local'), login);
     app.post('/api/logout', logout);
     app.post('/api/register', register);
@@ -345,13 +345,13 @@ module.exports = function (app, model) {
                 .then(
                     function (user) {
                         if (user) {
-                            user.url = '/project/uploads/' + filename;
+                            user.url = '/ReWear/uploads/' + filename;
                             model
                                 .userModel
                                 .updateUser(userId, user)
                                 .then(
                                     function (status) {
-                                        url = '../project/index.html#/user/' + userId;
+                                        url = '../ReWear/index.html#/user';
                                         res.redirect(url);
                                     },
                                     function (error) {
@@ -360,16 +360,16 @@ module.exports = function (app, model) {
                                 );
 
                         } else {
-                            url = '#';
+                            url = '/';
                         }
 
                     },
                     function (error) {
-                        url = '#';
+                        url = '/';
                     }
                 );
         } else {
-            url = '#'
+            url = '/'
         }
 
 

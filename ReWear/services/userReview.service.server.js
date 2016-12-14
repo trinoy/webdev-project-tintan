@@ -1,6 +1,6 @@
-module.exports = function(app, model) {
+    module.exports = function(app, model) {
 
-    app.post('/api/user/:userId/userReview', createUserReview);
+    app.post('/api/userReview', createUserReview);
     app.get('/api/user/:userId/userReviewBy', findUserReviewByUserId);
     app.get('/api/user/:userId/userReviewFor', findUserReviewForUserId);
     app.delete('/api/userReview/:reviewId', deleteUserReview);
@@ -45,8 +45,7 @@ module.exports = function(app, model) {
 
     function createUserReview(req, res){
         var review = req.body;
-        var userId = req.params.userId;
-        review.by = userId;
+
         model
             .userReviewModel
             .createUserReview(review)
