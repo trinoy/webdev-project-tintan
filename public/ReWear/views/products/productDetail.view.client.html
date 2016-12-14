@@ -51,7 +51,8 @@
                             type="button">Find Renters</button>
                     <button ng-click="model.createRental()" ng-show="model.mode=='Lent'" class="btn btn-primary"
                             type="button">Lend It</button>
-                    <button class="btn btn-primary" type="button">Add a Review</button>
+                    <button class="btn btn-primary" ng-click="model.toggleShowReview(true)" type="button">Add a
+                        Review</button>
 
                 </div>
                 <div uib-alert ng-repeat="alert in model.alerts" ng-class="'alert-' + (alert.type || 'info')"
@@ -90,6 +91,11 @@
                 </div>
             </div>
         </div>
+
+        <div class="wrapper row">
+            <div ng-include="'views/products/productReview.view.client.html'"></div>
+        </div>
+
         <div class="wrapper row detail-tab-margin">
             <div class="col-md-12 col-xs-12" id="logout">
                 <div class="comment-tabs">
@@ -170,10 +176,10 @@
                                     <div class="panel-body">
                                         <p>{{review.description}}</p>
                                         <span></span>
-                                        <span>{{review.by}}</span>
+                                        <span>{{review.by.firstName}}</span>
                                         <span class ="pull-right">
                                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                                        <span>{{review.dateCreated}}</span>
+                                        <span>{{review.dateCreated  | date: MMM/yyyy}}</span>
                                         </span>
 
                                     </div>

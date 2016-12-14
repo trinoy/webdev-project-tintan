@@ -44,12 +44,12 @@
         function init(){
             if(!$rootScope)
             {
-                var encodedKey = $rootScope.keyword.replace(/\s/g,"%20");
+                //var encodedKey = $rootScope.keyword.replace(/\s/g,"%20");
                 var encodedKey = $rootScope.keyword.replace(/\s/g,",");
                 searchProducts(encodedKey);
             }
             else if(window.sessionStorage.keyword !=undefined){
-                var encodedKey = window.sessionStorage.keyword.replace(/\s/g,"%20");
+                var encodedKey = window.sessionStorage.keyword.replace(/\s/g,",");
                 searchProducts(encodedKey);
             }
         }

@@ -10,7 +10,7 @@
 
 
         function search(){
-            alert("hi");
+            //alert("hi");
             $rootScope.keyword = vm.searchTerm;
             window.sessionStorage.keyword = vm.searchTerm;
             $location.url("/products");

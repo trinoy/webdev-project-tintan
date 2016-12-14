@@ -4,8 +4,7 @@
         .controller("ProductDetailController", ProductDetailController);
 
 
-    function ProductDetailController($location, $routeParams, ebayService, $sce, RentalService, $rootScope) {
-
+    function ProductDetailController($location, $route, $routeParams, ebayService, ProductReviewService, $sce, RentalService, $rootScope, $scope) {
         var vm = this;
         vm.sizes = ['Small', 'Medium', 'Large'];
         vm.elementId = $routeParams["eid"];
@@ -18,39 +17,30 @@
         vm.selectedOption = "Small";
         vm.init = init;
         vm.alerts = [];
+        vm.toggleShowReview = toggleShowReview;
         vm.createRental = createRental;
         vm.updateRental = updateRental;
         vm.findRentalsByProduct = findRentalsByProduct;
         vm.addAlert = addAlert;
+        vm.postProdReview = postProdReview;
+        vm.getProductReviews = getProductReviews;
 
         vm.closeAlert = function (index) {
             vm.alerts.splice(index, 1);
         };
 
+
         function init() {
 
-            getProductDetails();
-            getRelatedProducts();
-
-            vm.reviews = [{
-                title: "It is awesome",
-                by: "trinoy",
-                description: "I really Liked it",
-                rating: 2,
-                dateCreated: "12-10-2016"
-            },
-                {
-                    title: "It is awesome",
-                    by: "trinoy",
-                    description: "I really Liked it",
-                    rating: 2,
-                    dateCreated: "12-10-2016"
-                }];
-
+            getProductDetails(vm.elementId);
+            getRelatedProducts(vm.elementId);
+            getProductReviews(vm.elementId);
 
         }
 
-        init();
+        function toggleShowReview(show) {
+            vm.showReview = show;
+        }
 
         function addAlert() {
             vm.alerts.push({msg: 'Operation Process Successfully'});
@@ -60,8 +50,8 @@
             return $sce.trustAsHtml(vm.productDetail.Description);
         }
 
-        function getProductDetails() {
-            ebayService.getProductDetail(vm.elementId)
+        function getProductDetails(elementId) {
+            ebayService.getProductDetail(elementId)
                 .then(function (product) {
                         vm.productDetail = product.Item;
                     },
@@ -72,8 +62,20 @@
                 )
         }
 
-        function getRelatedProducts() {
-            ebayService.getRelatedProducts(vm.elementId)
+        function getProductReviews(elementId) {
+            ProductReviewService
+                .findReviewsByProduct(elementId)
+                .success(function (reviews) {
+                    vm.reviews = reviews;
+                })
+                .error(function () {
+                    vm.error = "Unable to Fetch review";
+                });
+
+        }
+
+        function getRelatedProducts(elementId) {
+            ebayService.getRelatedProducts(elementId)
                 .then(function (relproduct) {
                         vm.relProds = relproduct.getRelatedCategoryItemsResponse.itemRecommendations.item;
                     },
@@ -140,6 +142,32 @@
                     console.log(data);
                 });
         }
-    }
 
+        function postProdReview(review) {
+            var userId = $rootScope.currentUser._id;
+            review.by = userId;
+            review.productId = vm.productDetail.ItemID;
+            review.rating = vm.rating;
+            ProductReviewService
+                .createProductReview(userId, review)
+                .success(function () {
+                    $route.reload();
+                })
+                .error(function () {
+                    vm.error = "Unable to post review";
+                });
+        }
+
+        $scope.rating = 0;
+        $scope.ratings = [{
+            current: 0,
+            max: 5
+        }];
+
+        $scope.getSelectedRating = function (rating) {
+            vm.rating = rating;
+        }
+
+        init();
+    }
 })();
