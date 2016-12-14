@@ -6,8 +6,7 @@
         <li ng-show="!model.users.length">No Users Found</li>
         <li class="list-group-item" ng-repeat="user in model.users">
             <div class="col-md-1">
-                <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="Test Test"
-                     class="img-responsive img-circle"/>
+                <img src="{{user.url || 'https://app.nimia.com/static/img/default_profile.png'}}"/>
             </div>
             <div class="col-md-8">
                 <span class="name">{{user.lastName}}&nbsp{{user.lastName}}</span><br/>
