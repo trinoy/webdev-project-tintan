@@ -4,52 +4,61 @@
         .controller("ProductDetailController", ProductDetailController);
 
 
-    function ProductDetailController($location, $routeParams, ebayService,$sce) {
+    function ProductDetailController($location, $routeParams, ebayService, $sce, RentalService, $rootScope) {
 
         var vm = this;
-        vm.init = init;
+        vm.sizes = ['Small', 'Medium', 'Large'];
         vm.elementId = $routeParams["eid"];
         vm.checkSafeHtml = checkSafeHtml;
         vm.reviews;
         vm.sellers;
         vm.selectedOption;
-
         vm.singleModel = 1;
-        vm.mode='Rent';
+        vm.mode = 'Rent';
         vm.selectedOption = "Small";
+        vm.init = init;
+        vm.alerts = [];
+        vm.createRental = createRental;
+        vm.updateRental = updateRental;
+        vm.findRentalsByProduct = findRentalsByProduct;
+        vm.addAlert = addAlert;
 
-        vm.alerts = [
-           // { type: 'info', msg: 'Oh snap! Change a few things up and try submitting again.' },
-           // { type: 'info', msg: 'Well done! You successfully read this important alert message.' }
-        ];
-
-        vm.addAlert = function() {
-            vm.alerts.push({msg: 'Another alert!'});
-        };
-
-        vm.closeAlert = function(index) {
+        vm.closeAlert = function (index) {
             vm.alerts.splice(index, 1);
         };
-
-
-        function checkSafeHtml() {
-            return $sce.trustAsHtml(vm.productDetail.Description);
-        }
 
         function init() {
 
             getProductDetails();
             getRelatedProducts();
 
-            vm.reviews = [{title : "It is awesome", by: "trinoy", description : "I really Liked it", rating: 2,dateCreated:"12-10-2016" },
-                {title : "It is awesome", by: "trinoy", description : "I really Liked it", rating: 2,dateCreated:"12-10-2016" }];
-            vm.lenders = [{firstName : "Trinoy", lastName: "Hazarika", email : "email@email.com", phone: "6173808036" ,price:21 },
-                {firstName : "Trinoy", lastName: "Hazarika", email : "email@email.com", phone: "6173808036" ,price:21 }];
+            vm.reviews = [{
+                title: "It is awesome",
+                by: "trinoy",
+                description: "I really Liked it",
+                rating: 2,
+                dateCreated: "12-10-2016"
+            },
+                {
+                    title: "It is awesome",
+                    by: "trinoy",
+                    description: "I really Liked it",
+                    rating: 2,
+                    dateCreated: "12-10-2016"
+                }];
 
-            vm.sizes = ['Small', 'Medium', 'Large'];
+
         }
 
         init();
+
+        function addAlert() {
+            vm.alerts.push({msg: 'Operation Process Successfully'});
+        };
+
+        function checkSafeHtml() {
+            return $sce.trustAsHtml(vm.productDetail.Description);
+        }
 
         function getProductDetails() {
             ebayService.getProductDetail(vm.elementId)
@@ -75,6 +84,62 @@
                     })
         }
 
+        function createRental() {
+            var rental = {};
+            rental.productId = vm.productDetail.ItemID;
+            rental.size = vm.selectedOption;
+            rental.price = vm.price;
+            rental.lender = $rootScope.currentUser;
+            RentalService.createRental(rental)
+                .success(function (response) {
+                    addAlert();
+                    if (response === '0') {
+                        //addAlert();
+                    } else {
+                        vm.mode = 'Rent';
+                        vm.price = "";
+                        //$location.url("#/productDetail/"+ vm.productDetail.ItemID);
+                    }
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+
+        }
+
+        function updateRental(rental) {
+            var rentalId = rental._id;
+            rental.renter = $rootScope.currentUser;
+            rental.available = false;
+            RentalService.updateRental(rentalId, rental)
+                .success(function (response) {
+                    addAlert();
+                    if (response === '0') {
+                        //addAlert();
+                    } else {
+                        vm.mode = 'Rent';
+                        vm.price = "";
+                    }
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        }
+
+        function findRentalsByProduct() {
+            var size = vm.selectedOption;
+            RentalService.findRentalsByProduct(vm.productDetail.ItemID, size)
+                .success(function (rentals) {
+                    if (rentals === '0') {
+                        //addAlert();
+                    } else {
+                        vm.rentals = rentals;
+                    }
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        }
     }
 
 })();

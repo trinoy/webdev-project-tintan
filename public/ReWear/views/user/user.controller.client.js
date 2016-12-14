@@ -22,7 +22,7 @@
                         function (response) {
                             var user = response.data;
                             $rootScope.currentUser = user;
-                            $location.url("/user");
+                            $location.url("/");
                         },
                         function (err) {
                             vm.error = "Invalid Username and Password";

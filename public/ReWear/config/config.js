@@ -18,7 +18,8 @@
             .when("/productDetail/:eid", {
                 templateUrl: "views/products/productDetail.view.client.html",
                 controller: "ProductDetailController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {loggedin: checkLoggedin}
             })
 
             .when("/login", {

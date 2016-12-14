@@ -17,8 +17,8 @@
         </p>
     </div>
 </nav>
-
 <div class="container-fluid">
+
     <div class="card">
         <div class="wrapper row">
             <div class="preview col-md-4">
@@ -47,8 +47,12 @@
                            aria-label="Amount (to the nearest dollar)" placeholder="Whats Your Deal">
                 </div>
                 <div class="action rent-button">
-                    <button ng-show="model.mode=='Rent'"class="btn btn-primary" type="button">Find Renters</button>
-                    <button ng-show="model.mode=='Lent'" class="btn btn-primary" type="button">Lend It</button>
+                    <button ng-click="model.findRentalsByProduct()" ng-show="model.mode=='Rent'"class="btn btn-primary"
+                            type="button">Find Renters</button>
+                    <button ng-click="model.createRental()" ng-show="model.mode=='Lent'" class="btn btn-primary"
+                            type="button">Lend It</button>
+                    <button class="btn btn-primary" type="button">Add a Review</button>
+
                 </div>
                 <div uib-alert ng-repeat="alert in model.alerts" ng-class="'alert-' + (alert.type || 'info')"
                      close="model.closeAlert($index)" dismiss-on-timeout="3000">{{alert.msg}}</div>
@@ -57,27 +61,28 @@
             <div class="col-md-4 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading c-list">
-                        <span class="title">Lenters</span>
+                        <span class="title">Renters</span>
                     </div>
                     <ul class="list-group seller-height" id="contact-list">
                         <li ng-show="!model.lenders.length">No Renters Found</li>
-                        <li class="list-group-item" ng-repeat="lender in model.lenders">
+                        <li class="list-group-item" ng-repeat="rental in model.rentals">
                             <div class="col-xs-12 col-sm-3 cold-md-3 col-lg-3">
                                 <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="Test Test"
                                      class="img-responsive img-circle"/>
                             </div>
                             <div class="col-xs-12 col-sm-6">
-                                <span class="name">{{lender.firstName}}&nbsp{{lender.lastName}}</span><br/>
+                                <span class="name">{{rental.lender.firstName}}&nbsp{{rental.lender.lastName}}</span><br/>
                                 <span class="glyphicon glyphicon-envelope text-muted c-info" data-toggle="tooltip"
                                       title="scott.stevens@example.com"></span>
-                                <span class="text-muted">{{lender.email}}</span><br/>
+                                <span class="text-muted">{{rental.lender.email}}</span><br/>
                                 <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip"
                                       title="(870) 288-4149"></span><br>
-                                <span class="text-muted">{{lender.phone}}</span>
+                                <span class="text-muted">{{rental.lender.phone}}</span>
                             </div>
                             <div class="col-xs-12 col-sm-3 cold-md-3 col-lg-3 seller-amount">
-                                <span class="text-move-down">{{lender.price}}<i class="fa fa-dollar"></i></span>
-                                <button class="btn btn-primary" type="button">Rent It</button>
+                                <span class="text-move-down">{{rental.price}}<i class="fa fa-dollar"></i></span>
+                                <button ng-click="model.updateRental(rental)" class="btn btn-primary" type="button">Rent
+                                    It</button>
                             </div>
                             <div class="clearfix"></div>
                         </li>
@@ -108,7 +113,7 @@
                 </div>
 
 
-                <div class="tab-content">
+                <div class="tab-content detail-tab-panel">
                     <div class="tab-pane active" id="product-description">
                         <div class="">
                             <div class="panel panel-default panel-table panel-table-margin">

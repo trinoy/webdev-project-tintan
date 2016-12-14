@@ -12,8 +12,8 @@
             "findRentalsByProduct": findRentalsByProduct,
             "updateRental": updateRental,
             "deleteRental": deleteRental
-
         };
+
         return api;
 
         function createRental(rental) {

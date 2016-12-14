@@ -185,6 +185,10 @@ html {
 
 /*product detail*/
 
+.detail-tab-panel {
+    margin-top: 20px;
+}
+
 .price-input{
     margin-top: 10px;
 }

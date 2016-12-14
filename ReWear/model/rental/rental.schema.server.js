@@ -6,8 +6,8 @@ module.exports = function() {
         productId: String,
         size:{type: String, enum: ["Small", "Medium", "Large"]},
         price: String,
-        lender: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}],
-        renter: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}],
+        lender: {type: mongoose.Schema.Types.ObjectId, ref:'UserModel'},
+        renter: {type: mongoose.Schema.Types.ObjectId, ref:'UserModel'},
         available: {type: Boolean, default: true},
         dateCreated: {type: Date, default: Date.now},
     }, {collection: "rental"});

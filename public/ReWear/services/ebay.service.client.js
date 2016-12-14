@@ -27,7 +27,7 @@
             url += "&callback=JSON_CALLBACK";
             url += "&REST-PAYLOAD";
             url += "&keywords=" + keyword;
-            url += "&paginationInput.entriesPerPage=10&outputSelector(0)=SellerInfo&outputSelector(1)=StoreInfo";
+            url += "&paginationInput.entriesPerPage=50&outputSelector(0)=SellerInfo&outputSelector(1)=StoreInfo";
 
             var deferred = $q.defer();
             $http.jsonp(url)

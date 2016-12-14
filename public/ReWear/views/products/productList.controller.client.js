@@ -4,7 +4,7 @@
         .controller("ProductListController", ProductListController);
 
 
-    function ProductListController($location,ebayService,$rootScope) {
+    function ProductListController($location,ebayService,$rootScope,usSpinnerService,ngProgressLite) {
         var vm = this;
         vm.searchProducts = searchProducts;
         var products1 = [{title: "card title1", cardText: "card Text 1", cardText2: "card Text 2"},
@@ -21,6 +21,17 @@
         vm.search = search;
 
 
+        vm.startSpin = function() {
+           // usSpinnerService.spin('spinner-1');
+            ngProgressLite.start();
+        };
+
+        vm.stopSpin = function() {
+           // usSpinnerService.stop('spinner-1');
+            ngProgressLite.done();
+        };
+
+
         function search(){
             vm.searchTerm = vm.searchTerm.replace(/\s/g,",")
             searchProducts(vm.searchTerm)
@@ -35,26 +46,29 @@
             {
                 var encodedKey = $rootScope.keyword.replace(/\s/g,"%20");
                 var encodedKey = $rootScope.keyword.replace(/\s/g,",");
+                searchProducts(encodedKey);
             }
-            else{
+            else if(window.sessionStorage.keyword !=undefined){
                 var encodedKey = window.sessionStorage.keyword.replace(/\s/g,"%20");
+                searchProducts(encodedKey);
             }
-
-            searchProducts(encodedKey);
         }
 
         init();
 
 
         function searchProducts(keyword) {
+            vm.startSpin();
             ebayService.findProductsByKeyWords(keyword)
                 .then(function (products) {
+                        vm.stopSpin();
                     vm.products = products.findItemsByKeywordsResponse[0].searchResult[0].item;
                         //res.send(website);
                        // console.log(console.log('error'););
                     },
                     function (error) {
                        //
+                        vm.stopSpin();
                         console.log('error');
 
                     }
